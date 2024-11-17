@@ -8,23 +8,35 @@ export default defineSchema({
     lastname: v.optional(v.string()),
     role: v.union(v.literal("user"), v.literal("admin")),
     stripeCustomerId: v.optional(v.string()),
+    clerkUserId: v.string(),
     stripeSubscriptionId: v.optional(v.string()),
     stripeSubscriptionInterval: v.optional(v.string()),
     stripePriceId: v.optional(v.string()),
     stripePlanId: v.optional(v.string()),
     trialUsed: v.boolean(),
     isDeleted: v.boolean(),
-    clerkUserId: v.optional(v.string()),
     email: v.string(),
     createdAt: v.number(),
     updatedAt: v.number(),
   })
     .index("by_username", ["username"])
     .index("by_email", ["email"])
-    .index("by_stripeCustomerId", ["stripeCustomerId"])
-    .index("by_clerkUserId", ["clerkUserId"]),
+    .index("by_clerkUserId", ["clerkUserId"])
+    .index("by_stripeCustomerId", ["stripeCustomerId"]),
+
+  sites: defineTable({
+    userId: v.id("users"),
+    siteName: v.string(), // Used as the site identifier in URLs
+    paid: v.boolean(),
+    published: v.boolean(),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_userId", ["userId"])
+    .index("by_siteName", ["siteName"]),
 
   settings: defineTable({
+    siteId: v.id("sites"),
     accountName: v.string(),
     announcementDate: v.number(),
     welcomeHeroText: v.string(),
@@ -34,49 +46,75 @@ export default defineSchema({
       showGenderPoll: v.boolean(),
       showGenderQuiz: v.boolean(),
     }),
+    theme: v.string(),
     createdAt: v.number(),
     updatedAt: v.number(),
-  }).index("by_accountName", ["accountName"]),
+  }).index("by_siteId", ["siteId"]),
 
   babies: defineTable({
-    settingsId: v.id("settings"),
+    siteId: v.id("sites"),
+    name: v.string(),
     gender: v.union(v.literal("boy"), v.literal("girl")),
     createdAt: v.number(),
     updatedAt: v.number(),
-  }).index("by_settingsId", ["settingsId"]),
+  }).index("by_siteId", ["siteId"]),
 
   votes: defineTable({
+    siteId: v.id("sites"),
     gender: v.string(),
-    userId: v.string(),
+    visitorId: v.string(), // Use visitorId instead of userId for public visitors
     createdAt: v.number(),
     updatedAt: v.number(),
-  }).index("by_userId", ["userId"]),
+  })
+    .index("by_siteId", ["siteId"])
+    .index("by_visitorId", ["visitorId"]),
 
-  questions: defineTable({
+  quizQuestions: defineTable({
+    siteId: v.id("sites"),
     question: v.string(),
     options: v.array(v.string()),
-    easter_egg: v.optional(v.string()),
+    easterEggOptionIndex: v.optional(v.number()),
     createdAt: v.number(),
     updatedAt: v.number(),
-  }),
+  }).index("by_siteId", ["siteId"]),
 
-  questionResponses: defineTable({
-    userId: v.string(),
-    questionId: v.id("questions"),
+  quizResponses: defineTable({
+    siteId: v.id("sites"),
+    visitorId: v.string(),
+    questionId: v.id("quizQuestions"),
     sessionId: v.id("quizSessions"),
     selectedOption: v.string(),
     createdAt: v.number(),
     updatedAt: v.number(),
   })
-    .index("by_userId", ["userId"])
-    .index("by_question", ["questionId"])
-    .index("by_session", ["sessionId"]),
+    .index("by_siteId", ["siteId"])
+    .index("by_questionId", ["questionId"])
+    .index("by_visitorId", ["visitorId"])
+    .index("by_sessionId", ["sessionId"]),
 
   quizSessions: defineTable({
-    userId: v.string(),
-    questionIds: v.array(v.id("questions")),
+    siteId: v.id("sites"),
+    visitorId: v.string(),
+    questionIds: v.array(v.id("quizQuestions")),
     completed: v.boolean(),
     createdAt: v.number(),
     updatedAt: v.number(),
-  }).index("by_userId", ["userId"]),
+  })
+    .index("by_siteId", ["siteId"])
+    .index("by_visitorId", ["visitorId"]),
+
+  payments: defineTable({
+    userId: v.id("users"),
+    siteId: v.id("sites"),
+    amount: v.number(),
+    currency: v.string(),
+    timestamp: v.number(),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("completed"),
+      v.literal("failed")
+    ),
+  })
+    .index("by_userId", ["userId"])
+    .index("by_siteId", ["siteId"]),
 });

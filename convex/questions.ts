@@ -3,15 +3,22 @@ import { mutation, query } from "./_generated/server";
 
 // Start a new quiz session
 export const startSession = mutation({
-  args: { userId: v.string() },
+  args: {
+    visitorId: v.string(),
+    siteId: v.id("sites"),
+  },
   handler: async (ctx, args) => {
-    // Get all questions
-    const questions = await ctx.db.query("questions").collect();
+    // Get all questions for this site
+    const questions = await ctx.db
+      .query("quizQuestions")
+      .withIndex("by_siteId", (q) => q.eq("siteId", args.siteId))
+      .collect();
 
-    // Get all questions this user has already answered
+    // Get all questions this visitor has already answered for this site
     const answeredQuestions = await ctx.db
-      .query("questionResponses")
-      .withIndex("by_userId", (q) => q.eq("userId", args.userId))
+      .query("quizResponses")
+      .withIndex("by_siteId", (q) => q.eq("siteId", args.siteId))
+      .filter((q) => q.eq(q.field("visitorId"), args.visitorId))
       .collect();
 
     const answeredQuestionIds = new Set(
@@ -30,9 +37,10 @@ export const startSession = mutation({
 
     const now = Date.now();
 
-    // Create a new session
+    // Create a new session with siteId
     const sessionId = await ctx.db.insert("quizSessions", {
-      userId: args.userId,
+      siteId: args.siteId,
+      visitorId: args.visitorId,
       questionIds: shuffled.map((q) => q._id),
       completed: false,
       createdAt: now,
@@ -48,12 +56,16 @@ export const startSession = mutation({
 
 // Get current session questions
 export const getCurrentSession = query({
-  args: { userId: v.string() },
+  args: {
+    visitorId: v.string(),
+    siteId: v.id("sites"),
+  },
   handler: async (ctx, args) => {
-    // Find the most recent session, regardless of completion status
+    // Find the most recent session for this site and visitor
     const session = await ctx.db
       .query("quizSessions")
-      .withIndex("by_userId", (q) => q.eq("userId", args.userId))
+      .withIndex("by_siteId", (q) => q.eq("siteId", args.siteId))
+      .filter((q) => q.eq(q.field("visitorId"), args.visitorId))
       .order("desc")
       .first();
 
@@ -66,13 +78,13 @@ export const getCurrentSession = query({
 
     // Get user's responses for this session
     const responses = await ctx.db
-      .query("questionResponses")
-      .withIndex("by_session", (q) => q.eq("sessionId", session._id))
+      .query("quizResponses")
+      .withIndex("by_sessionId", (q) => q.eq("sessionId", session._id))
       .collect();
 
     return {
       sessionId: session._id,
-      questions: questions.filter(Boolean), // Remove any null values
+      questions: questions.filter(Boolean),
       responses: responses,
       completed: session.completed,
     };
@@ -82,16 +94,17 @@ export const getCurrentSession = query({
 // Submit an answer
 export const submitAnswer = mutation({
   args: {
-    userId: v.string(),
+    visitorId: v.string(),
+    siteId: v.id("sites"),
     sessionId: v.id("quizSessions"),
-    questionId: v.id("questions"),
+    questionId: v.id("quizQuestions"),
     selectedOption: v.string(),
   },
   handler: async (ctx, args) => {
-    // Check if user has already answered this question in THIS session
+    // Check if visitor has already answered this question in THIS session
     const existingResponse = await ctx.db
-      .query("questionResponses")
-      .withIndex("by_session", (q) => q.eq("sessionId", args.sessionId))
+      .query("quizResponses")
+      .withIndex("by_sessionId", (q) => q.eq("sessionId", args.sessionId))
       .filter((q) => q.eq(q.field("questionId"), args.questionId))
       .first();
 
@@ -101,9 +114,10 @@ export const submitAnswer = mutation({
 
     const now = Date.now();
 
-    // Record the response
-    await ctx.db.insert("questionResponses", {
-      userId: args.userId,
+    // Record the response with siteId
+    await ctx.db.insert("quizResponses", {
+      siteId: args.siteId,
+      visitorId: args.visitorId,
       questionId: args.questionId,
       sessionId: args.sessionId,
       selectedOption: args.selectedOption,
@@ -116,8 +130,8 @@ export const submitAnswer = mutation({
     if (!session) throw new Error("Session not found");
 
     const responses = await ctx.db
-      .query("questionResponses")
-      .withIndex("by_session", (q) => q.eq("sessionId", args.sessionId))
+      .query("quizResponses")
+      .withIndex("by_sessionId", (q) => q.eq("sessionId", args.sessionId))
       .collect();
 
     // If all questions are answered, mark session as completed
@@ -134,11 +148,15 @@ export const submitAnswer = mutation({
 
 // Get answer statistics for a question
 export const getQuestionStats = query({
-  args: { questionId: v.id("questions") },
+  args: {
+    questionId: v.id("quizQuestions"),
+    siteId: v.id("sites"),
+  },
   handler: async (ctx, args) => {
     const responses = await ctx.db
-      .query("questionResponses")
-      .withIndex("by_question", (q) => q.eq("questionId", args.questionId))
+      .query("quizResponses")
+      .withIndex("by_siteId", (q) => q.eq("siteId", args.siteId))
+      .filter((q) => q.eq(q.field("questionId"), args.questionId))
       .collect();
 
     const total = responses.length;

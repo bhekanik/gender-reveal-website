@@ -1,12 +1,16 @@
 "use client";
 
 import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
 import { useQuery } from "convex/react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { Button } from "./ui/button";
 
 export function WelcomeHero() {
-  const settings = useQuery(api.settings.get);
+  const params = useParams();
+  const siteId = params.siteId as Id<"sites">;
+  const settings = useQuery(api.settings.get, { siteId });
 
   return (
     <section className="text-center space-y-6 py-12">

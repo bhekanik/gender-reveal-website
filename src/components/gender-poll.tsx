@@ -1,16 +1,20 @@
 "use client";
 
 import { api } from "@/convex/_generated/api";
-import { useUserId } from "@/lib/hooks/use-user-id";
+import { Id } from "@/convex/_generated/dataModel";
+import { useVisitorId } from "@/lib/hooks/use-user-id";
 import { useMutation, useQuery } from "convex/react";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export function GenderPoll() {
-  const userId = useUserId();
+  const visitorId = useVisitorId();
+  const params = useParams();
+  const siteId = params.siteId as Id<"sites">;
 
   const [hasVoted, setHasVoted] = useState(false);
   const castVote = useMutation(api.votes.castVote);
-  const results = useQuery(api.votes.getVoteResults) ?? {
+  const results = useQuery(api.votes.getVoteResults, { siteId }) ?? {
     boy: 0,
     girl: 0,
     total: 0,
@@ -18,14 +22,14 @@ export function GenderPoll() {
 
   // Check if user has voted on component mount
   useEffect(() => {
-    const voted = localStorage.getItem(`gender-poll-voted-${userId}`);
+    const voted = localStorage.getItem(`gender-poll-voted-${visitorId}`);
     if (voted) setHasVoted(true);
-  }, [userId]);
+  }, [visitorId]);
 
   const handleVote = async (gender: "boy" | "girl") => {
     try {
-      await castVote({ gender, userId });
-      localStorage.setItem(`gender-poll-voted-${userId}`, "true");
+      await castVote({ siteId, gender, visitorId: visitorId });
+      localStorage.setItem(`gender-poll-voted-${visitorId}`, "true");
       setHasVoted(true);
     } catch (error) {
       if (

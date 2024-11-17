@@ -1,10 +1,11 @@
 "use client";
 
 import { api } from "@/convex/_generated/api";
-import { useUserId } from "@/lib/hooks/use-user-id";
+import { Id } from "@/convex/_generated/dataModel";
+import { useVisitorId } from "@/lib/hooks/use-user-id";
 import { useMutation, useQuery } from "convex/react";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { QuestionCard } from "./quiz/question-card";
 import { Button } from "./ui/button";
@@ -12,7 +13,9 @@ import { Button } from "./ui/button";
 type QuizState = "not-started" | "in-progress" | "completed" | "all-done";
 
 export function Quiz() {
-  const userId = useUserId();
+  const visitorId = useVisitorId();
+  const params = useParams();
+  const siteId = params.siteId as Id<"sites">;
   const router = useRouter();
   const [quizState, setQuizState] = useState<QuizState>("not-started");
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -20,12 +23,15 @@ export function Quiz() {
 
   const startSession = useMutation(api.questions.startSession);
   const submitAnswer = useMutation(api.questions.submitAnswer);
-  const currentSession = useQuery(api.questions.getCurrentSession, { userId });
+  const currentSession = useQuery(api.questions.getCurrentSession, {
+    visitorId,
+    siteId,
+  });
 
   const handleStartQuiz = async () => {
     setCurrentQuestionIndex(0);
     setQuizState("in-progress");
-    const result = await startSession({ userId });
+    const result = await startSession({ visitorId, siteId });
 
     if (result.questions.length === 0) {
       setQuizState("all-done");
@@ -37,7 +43,8 @@ export function Quiz() {
 
     try {
       await submitAnswer({
-        userId,
+        visitorId,
+        siteId,
         sessionId: currentSession.sessionId,
         questionId: currentSession.questions[currentQuestionIndex]._id,
         selectedOption: option,

@@ -4,6 +4,7 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useMutation } from "convex/react";
 import { AlertTriangle } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import {
@@ -18,18 +19,17 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 
-interface DangerZoneProps {
-  settingsId: Id<"settings">;
-}
-
-export function DangerZone({ settingsId }: DangerZoneProps) {
+export function DangerZone() {
   const deleteAccount = useMutation(api.settings.deleteAccount);
   const [isOpen, setIsOpen] = useState(false);
   const [confirmation, setConfirmation] = useState("");
 
+  const params = useParams();
+  const siteId = params.siteId as Id<"sites">;
+
   const handleDelete = async () => {
     if (confirmation === "DELETE") {
-      await deleteAccount({ settingsId });
+      await deleteAccount({ siteId });
       window.location.href = "/";
     }
   };

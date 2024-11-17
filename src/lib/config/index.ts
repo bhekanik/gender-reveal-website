@@ -1,9 +1,9 @@
 const isDev = process.env.NODE_ENV === "development";
-const domain = isDev ? "localhost:3000" : "genderreveal.bhekani.com";
+const domain = isDev ? "localhost:3000" : "pinkandblue.live";
 
 export const config = {
-  projectName: "Gender Reveal",
-  projectDescription: "Reveal your baby's gender with your friends and family",
+  projectName: "Pink and Blue",
+  projectDescription: "Create your personalized baby gender reveal site",
   baseUrl: `http://${domain}`,
   domain,
   supportEmail: `${domain.split(".")[0]}@bhekani.com`,

@@ -123,8 +123,8 @@ export default withSentryConfig(wrappedConfig, {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
-  org: "gender-reveal",
-  project: "javascript-nextjs",
+  org: "pink-and-blue",
+  project: "webapp",
 
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,

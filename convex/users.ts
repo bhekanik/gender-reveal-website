@@ -50,6 +50,21 @@ export const getUserById = query({
   },
 });
 
+export const getUser = query({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity || !identity.email) return null;
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_email", (q) => q.eq("email", identity.email as string))
+      .first();
+
+    return user;
+  },
+});
+
 // Helper function to create a new user
 export const createUser = mutation({
   args: {
@@ -188,7 +203,7 @@ export const deleteUser = mutation({
       // Find and delete user's votes
       const votes = await ctx.db
         .query("votes")
-        .withIndex("by_userId", (q) => q.eq("userId", user.clerkUserId ?? ""))
+        .withIndex("by_visitorId", (q) => q.eq("visitorId", user.clerkUserId))
         .collect();
 
       for (const vote of votes) {
@@ -197,22 +212,31 @@ export const deleteUser = mutation({
 
       // Find and delete user's quiz responses
       const responses = await ctx.db
-        .query("questionResponses")
-        .withIndex("by_userId", (q) => q.eq("userId", user.clerkUserId ?? ""))
+        .query("quizResponses")
+        .withIndex("by_visitorId", (q) => q.eq("visitorId", user.clerkUserId))
         .collect();
 
       for (const response of responses) {
         await ctx.db.delete(response._id);
       }
 
-      // Find and delete user's quiz sessions
-      const sessions = await ctx.db
-        .query("quizSessions")
-        .withIndex("by_userId", (q) => q.eq("userId", user.clerkUserId ?? ""))
+      const sites = await ctx.db
+        .query("sites")
+        .withIndex("by_userId", (q) => q.eq("userId", user._id))
         .collect();
 
-      for (const session of sessions) {
-        await ctx.db.delete(session._id);
+      for (const site of sites) {
+        await ctx.db.delete(site._id);
+
+        // Find and delete user's quiz sessions
+        const sessions = await ctx.db
+          .query("quizSessions")
+          .withIndex("by_siteId", (q) => q.eq("siteId", site._id))
+          .collect();
+
+        for (const session of sessions) {
+          await ctx.db.delete(session._id);
+        }
       }
 
       return {

@@ -8,7 +8,7 @@ import { QuestionStats } from "./question-stats";
 
 interface QuestionCardProps {
   question: {
-    _id: Id<"questions">;
+    _id: Id<"quizQuestions">;
     question: string;
     options: string[];
     easter_egg?: string;

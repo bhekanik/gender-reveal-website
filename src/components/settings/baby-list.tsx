@@ -4,6 +4,7 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
 import { PlusCircle, Trash2 } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
@@ -13,8 +14,10 @@ interface BabyListProps {
   settingsId: Id<"settings">;
 }
 
-export function BabyList({ settingsId }: BabyListProps) {
-  const babies = useQuery(api.settings.getBabies, { settingsId }) ?? [];
+export function BabyList() {
+  const params = useParams();
+  const siteId = params.siteId as Id<"sites">;
+  const babies = useQuery(api.settings.getBabies, { siteId }) ?? [];
   console.log("babies:", babies);
   const setBabies = useMutation(api.settings.setBabies);
   const [isAdding, setIsAdding] = useState(false);
@@ -22,7 +25,8 @@ export function BabyList({ settingsId }: BabyListProps) {
 
   const handleAddBaby = async () => {
     await setBabies({
-      babies: [...babies, { gender: newBabyGender }],
+      siteId,
+      babies: [...babies, { name: "", gender: newBabyGender }],
     });
     setIsAdding(false);
     setNewBabyGender("boy");
@@ -30,14 +34,14 @@ export function BabyList({ settingsId }: BabyListProps) {
 
   const handleRemoveBaby = async (index: number) => {
     const newBabies = babies.filter((_, i) => i !== index);
-    await setBabies({ babies: newBabies });
+    await setBabies({ siteId, babies: newBabies });
   };
 
   const handleUpdateGender = async (index: number, gender: "boy" | "girl") => {
     const newBabies = babies.map((baby, i) =>
       i === index ? { ...baby, gender } : baby
     );
-    await setBabies({ babies: newBabies });
+    await setBabies({ siteId, babies: newBabies });
   };
 
   return (

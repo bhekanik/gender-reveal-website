@@ -3,25 +3,28 @@ import { mutation, query } from "./_generated/server";
 
 export const castVote = mutation({
   args: {
-    gender: v.string(),
-    userId: v.string(),
+    siteId: v.id("sites"),
+    gender: v.union(v.literal("boy"), v.literal("girl")),
+    visitorId: v.string(),
   },
   handler: async (ctx, args) => {
     // Check if user has already voted
     const existingVote = await ctx.db
       .query("votes")
-      .withIndex("by_userId", (q) => q.eq("userId", args.userId))
+      .withIndex("by_siteId", (q) => q.eq("siteId", args.siteId))
+      .filter((q) => q.eq(q.field("visitorId"), args.visitorId))
       .first();
 
     if (existingVote) {
-      throw new Error("User has already voted");
+      throw new Error("Visitor has already voted");
     }
 
     const now = Date.now();
 
     await ctx.db.insert("votes", {
+      siteId: args.siteId,
       gender: args.gender,
-      userId: args.userId,
+      visitorId: args.visitorId,
       createdAt: now,
       updatedAt: now,
     });
@@ -29,8 +32,15 @@ export const castVote = mutation({
 });
 
 export const getVoteResults = query({
-  handler: async (ctx) => {
-    const votes = await ctx.db.query("votes").collect();
+  args: {
+    siteId: v.id("sites"),
+  },
+  handler: async (ctx, args) => {
+    const votes = await ctx.db
+      .query("votes")
+      .withIndex("by_siteId", (q) => q.eq("siteId", args.siteId))
+      .collect();
+
     const total = votes.length;
 
     const boyVotes = votes.filter((vote) => vote.gender === "boy").length;

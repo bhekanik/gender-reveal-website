@@ -39,6 +39,7 @@ export function SettingsForm({ settings }: SettingsFormProps) {
     try {
       await updateSettings({
         ...formData,
+        siteId: settings.siteId,
         announcementDate: new Date(formData.announcementDate).getTime(),
       });
       router.refresh();
@@ -93,7 +94,7 @@ export function SettingsForm({ settings }: SettingsFormProps) {
       {/* Babies */}
       <div className="space-y-4">
         <h2 className="text-xl font-semibold">Baby Settings</h2>
-        <BabyList settingsId={settings._id} />
+        <BabyList />
       </div>
 
       {/* Features */}
@@ -183,7 +184,7 @@ export function SettingsForm({ settings }: SettingsFormProps) {
       </div>
 
       {/* Danger Zone */}
-      <DangerZone settingsId={settings._id} />
+      <DangerZone />
     </form>
   );
 }

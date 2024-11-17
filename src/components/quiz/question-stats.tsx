@@ -3,10 +3,11 @@
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useQuery } from "convex/react";
+import { useParams } from "next/navigation";
 import { useMemo } from "react";
 
 interface QuestionStatsProps {
-  questionId: Id<"questions">;
+  questionId: Id<"quizQuestions">;
   options: string[];
   onNext: () => void;
   isLastQuestion: boolean;
@@ -18,8 +19,12 @@ export function QuestionStats({
   onNext,
   isLastQuestion,
 }: QuestionStatsProps) {
+  const params = useParams();
+  const siteId = params.siteId as Id<"sites">;
+
   const questionStats = useQuery(api.questions.getQuestionStats, {
     questionId,
+    siteId,
   }) ?? {
     stats: {},
     total: 0,
