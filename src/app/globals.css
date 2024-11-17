@@ -2,63 +2,107 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 @layer base {
   :root {
+    /* Base colors */
     --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+    --foreground: 224 71.4% 4.1%;
+
+    /* Card & Popover */
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    --card-foreground: 224 71.4% 4.1%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+    --popover-foreground: 224 71.4% 4.1%;
+
+    /* Primary - Using blue as primary */
+    --primary: 213.6 100% 52.9%;
+    --primary-foreground: 210 40% 98%;
+
+    /* Secondary - Using pink as secondary */
+    --secondary: 327.4 73.3% 52.9%;
+    --secondary-foreground: 210 40% 98%;
+
+    /* Muted & Accent */
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    /* Destructive */
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* UI Elements */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 224 71.4% 4.1%;
+
+    /* Chart Colors - Adjusted for better contrast */
+    --chart-1: 327.4 73.3% 52.9%; /* Pink */
+    --chart-2: 213.6 100% 52.9%; /* Blue */
+    --chart-3: 271.5 81.3% 55.9%; /* Purple */
+    --chart-4: 191.6 91.4% 36.5%; /* Sky */
+    --chart-5: 349.7 89.2% 60.2%; /* Rose */
+
+    /* Brand Colors */
+    --brand-pink-light: 327.4 73.3% 92%;
+    --brand-pink: 327.4 73.3% 52.9%;
+    --brand-pink-dark: 327.4 73.3% 32.9%;
+    --brand-blue-light: 213.6 100% 92%;
+    --brand-blue: 213.6 100% 52.9%;
+    --brand-blue-dark: 213.6 100% 32.9%;
+
     --radius: 0.5rem;
   }
+
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    /* Base colors */
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 40% 98%;
+
+    /* Card & Popover */
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 210 40% 98%;
+    --popover: 224 71.4% 4.1%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Primary - Using blue as primary */
+    --primary: 213.6 100% 62.9%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    /* Secondary - Using pink as secondary */
+    --secondary: 327.4 73.3% 62.9%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    /* Muted & Accent */
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+    --accent: 223 47% 11%;
+    --accent-foreground: 210 40% 98%;
+
+    /* Destructive */
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* UI Elements */
+    --border: 223 47% 11%;
+    --input: 223 47% 11%;
+    --ring: 212.7 26.8% 83.9%;
+
+    /* Chart Colors - Adjusted for dark mode visibility */
+    --chart-1: 327.4 73.3% 62.9%; /* Pink */
+    --chart-2: 213.6 100% 62.9%; /* Blue */
+    --chart-3: 271.5 81.3% 65.9%; /* Purple */
+    --chart-4: 191.6 91.4% 46.5%; /* Sky */
+    --chart-5: 349.7 89.2% 70.2%; /* Rose */
+
+    /* Brand Colors - Dark Mode */
+    --brand-pink-light: 327.4 73.3% 42.9%;
+    --brand-pink: 327.4 73.3% 62.9%;
+    --brand-pink-dark: 327.4 73.3% 82.9%;
+    --brand-blue-light: 213.6 100% 42.9%;
+    --brand-blue: 213.6 100% 62.9%;
+    --brand-blue-dark: 213.6 100% 82.9%;
   }
 }
 
@@ -68,5 +112,8 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
   }
 }
