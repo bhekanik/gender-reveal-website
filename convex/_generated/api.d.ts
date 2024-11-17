@@ -15,6 +15,7 @@ import type {
 } from "convex/server";
 import type * as questions from "../questions.js";
 import type * as settings from "../settings.js";
+import type * as users from "../users.js";
 import type * as votes from "../votes.js";
 
 /**
@@ -28,6 +29,7 @@ import type * as votes from "../votes.js";
 declare const fullApi: ApiFromModules<{
   questions: typeof questions;
   settings: typeof settings;
+  users: typeof users;
   votes: typeof votes;
 }>;
 export declare const api: FilterApi<

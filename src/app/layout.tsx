@@ -1,4 +1,5 @@
 import { ConvexClientProvider } from "@/components/providers/convex-client-provider";
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import NextTopLoader from "nextjs-toploader";
@@ -37,13 +38,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ConvexClientProvider>
-          <NextTopLoader />
-          {/* <Suspense fallback={null}> */}
-          {/*   <PostHogPageView /> */}
-          {/* </Suspense> */}
-          {children}
-        </ConvexClientProvider>
+        <ClerkProvider>
+          <ConvexClientProvider>
+            <NextTopLoader />
+            {/* <Suspense fallback={null}> */}
+            {/*   <PostHogPageView /> */}
+            {/* </Suspense> */}
+            {children}
+          </ConvexClientProvider>
+        </ClerkProvider>
       </body>
     </html>
   );

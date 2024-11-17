@@ -39,7 +39,11 @@ const FloatingElement = ({
 
 export default function RevealPage() {
   const announcementDate = useQuery(api.settings.getAnnouncementDate);
-  const babies = useQuery(api.settings.getBabies);
+  const settings = useQuery(api.settings.get);
+  console.log("settings:", settings);
+  const babies = useQuery(api.settings.getBabies, {
+    settingsId: settings!._id,
+  });
   const [isRevealed, setIsRevealed] = useState(false);
   const [windowSize, setWindowSize] = useState({
     width: 0,

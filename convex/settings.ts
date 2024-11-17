@@ -1,30 +1,75 @@
 import { v } from "convex/values";
+import { config } from "../src/lib/config";
 import { mutation, query } from "./_generated/server";
 
-type Baby = {
-  gender: "boy" | "girl";
-  order?: number; // For birth order in case of twins/triplets
-};
-
-export const getAnnouncementDate = query({
+export const get = query({
   handler: async (ctx) => {
-    const setting = await ctx.db
-      .query("settings")
-      .withIndex("by_key", (q) => q.eq("key", "announcementDate"))
-      .first();
+    const settings = await ctx.db.query("settings").first();
+    return settings;
+  },
+});
 
-    return setting?.value as string | null;
+export const setDefaultSettings = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const now = Date.now();
+    const createdSettingsId = await ctx.db.insert("settings", {
+      ...config.defaults.settings,
+      createdAt: now,
+      updatedAt: now,
+    });
+
+    await ctx.db.insert("babies", {
+      settingsId: createdSettingsId,
+      gender: "girl",
+      createdAt: now,
+      updatedAt: now,
+    });
+
+    return ctx.db.query("settings").first();
   },
 });
 
 export const getBabies = query({
-  handler: async (ctx) => {
-    const setting = await ctx.db
-      .query("settings")
-      .withIndex("by_key", (q) => q.eq("key", "babies"))
-      .first();
+  args: { settingsId: v.id("settings") },
+  handler: async (ctx, args) => {
+    const babies = await ctx.db
+      .query("babies")
+      .withIndex("by_settingsId", (q) => q.eq("settingsId", args.settingsId))
+      .collect();
 
-    return (setting?.value ?? []) as Baby[];
+    return babies;
+  },
+});
+
+export const update = mutation({
+  args: {
+    accountName: v.string(),
+    announcementDate: v.number(),
+    welcomeHeroText: v.string(),
+    revealText: v.string(),
+    features: v.object({
+      showCountdown: v.boolean(),
+      showGenderPoll: v.boolean(),
+      showGenderQuiz: v.boolean(),
+    }),
+  },
+  handler: async (ctx, args) => {
+    const settings = await ctx.db.query("settings").first();
+    const now = Date.now();
+
+    if (settings) {
+      await ctx.db.patch(settings._id, {
+        ...args,
+        updatedAt: now,
+      });
+    } else {
+      await ctx.db.insert("settings", {
+        ...args,
+        createdAt: now,
+        updatedAt: now,
+      });
+    }
   },
 });
 
@@ -33,54 +78,56 @@ export const setBabies = mutation({
     babies: v.array(
       v.object({
         gender: v.union(v.literal("boy"), v.literal("girl")),
-        order: v.optional(v.number()),
       })
     ),
   },
   handler: async (ctx, args) => {
-    const now = Date.now();
-    const existing = await ctx.db
-      .query("settings")
-      .withIndex("by_key", (q) => q.eq("key", "babies"))
-      .first();
+    const settings = await ctx.db.query("settings").first();
+    if (!settings) throw new Error("Settings not found");
 
-    if (existing) {
-      await ctx.db.patch(existing._id, {
-        value: args.babies,
-        updatedAt: now,
-      });
-    } else {
-      await ctx.db.insert("settings", {
-        key: "babies",
-        value: args.babies,
-        createdAt: now,
-        updatedAt: now,
-      });
-    }
+    // Delete existing babies
+    const existingBabies = await ctx.db
+      .query("babies")
+      .withIndex("by_settingsId", (q) => q.eq("settingsId", settings._id))
+      .collect();
+
+    await Promise.all(existingBabies.map((baby) => ctx.db.delete(baby._id)));
+
+    // Insert new babies
+    const now = Date.now();
+    await Promise.all(
+      args.babies.map((baby) =>
+        ctx.db.insert("babies", {
+          settingsId: settings._id,
+          gender: baby.gender,
+          createdAt: now,
+          updatedAt: now,
+        })
+      )
+    );
   },
 });
 
-export const setAnnouncementDate = mutation({
-  args: { date: v.string() },
+export const deleteAccount = mutation({
+  args: { settingsId: v.id("settings") },
   handler: async (ctx, args) => {
-    const now = Date.now();
-    const existing = await ctx.db
-      .query("settings")
-      .withIndex("by_key", (q) => q.eq("key", "announcementDate"))
-      .first();
+    // Delete all related data
+    const babies = await ctx.db
+      .query("babies")
+      .withIndex("by_settingsId", (q) => q.eq("settingsId", args.settingsId))
+      .collect();
 
-    if (existing) {
-      await ctx.db.patch(existing._id, {
-        value: args.date,
-        updatedAt: now,
-      });
-    } else {
-      await ctx.db.insert("settings", {
-        key: "announcementDate",
-        value: args.date,
-        createdAt: now,
-        updatedAt: now,
-      });
-    }
+    // Delete babies
+    await Promise.all(babies.map((baby) => ctx.db.delete(baby._id)));
+
+    // Delete settings
+    await ctx.db.delete(args.settingsId);
+  },
+});
+
+export const getAnnouncementDate = query({
+  handler: async (ctx) => {
+    const settings = await ctx.db.query("settings").first();
+    return settings?.announcementDate;
   },
 });
