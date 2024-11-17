@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+import { NextConfig } from "next";
 import nextPWA from "next-pwa";
 
 const nextConfig: NextConfig = {
@@ -12,6 +12,14 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "api.producthunt.com",
+      },
+      {
+        protocol: "https",
+        hostname: "api.dicebear.com",
+      },
+      {
+        protocol: "https",
+        hostname: "media.licdn.com",
       },
     ],
     dangerouslyAllowSVG: true,
@@ -107,4 +115,7 @@ const withPWA = nextPWA({
   disable: process.env.NODE_ENV === "development",
 });
 
-export default withPWA(nextConfig);
+// Wrap nextConfig with withPWA first, then with withSentryConfig
+const wrappedConfig = withPWA(nextConfig as any) as NextConfig;
+
+export default wrappedConfig;
