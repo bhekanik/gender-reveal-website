@@ -1,5 +1,3 @@
-"use client";
-
 import { AnimatedBackground } from "@/components/animated-background";
 import { Quiz } from "@/components/quiz";
 
