@@ -1,4 +1,5 @@
 import { v } from "convex/values";
+import { logger } from "../src/lib/logger";
 import { mutation, query } from "./_generated/server";
 
 export const getUserByClerkId = query({
@@ -82,37 +83,44 @@ export const createUser = mutation({
   },
   handler: async (ctx, args) => {
     // Check if user already exists with this email or clerkUserId
+    logger.info({ ...ctx, args }, "Checking if user already exists");
     const existingUser = await ctx.db
       .query("users")
       .withIndex("by_clerkUserId", (q) => q.eq("clerkUserId", args.clerkUserId))
       .first();
 
     if (existingUser) {
+      logger.info({ ...ctx, existingUser }, "User already exists");
       throw new Error("User already exists");
     }
 
     // Check for duplicate username
+    logger.info({ ...ctx, args }, "Checking for duplicate username");
     const existingUsername = await ctx.db
       .query("users")
       .withIndex("by_username", (q) => q.eq("username", args.username))
       .first();
 
     if (existingUsername) {
+      logger.info({ ...ctx, existingUsername }, "Username already taken");
       throw new Error("Username already taken");
     }
 
     // Check for duplicate email
+    logger.info({ ...ctx, args }, "Checking for duplicate email");
     const existingEmail = await ctx.db
       .query("users")
       .withIndex("by_email", (q) => q.eq("email", args.email))
       .first();
 
     if (existingEmail) {
+      logger.info({ ...ctx, existingEmail }, "Email already registered");
       throw new Error("Email already registered");
     }
 
     const now = Date.now();
 
+    logger.info({ ...ctx, args }, "Creating user");
     const userId = await ctx.db.insert("users", {
       email: args.email,
       clerkUserId: args.clerkUserId,
@@ -134,6 +142,7 @@ export const createUser = mutation({
     const user = await ctx.db.get(userId);
 
     if (!user) {
+      logger.error({ ...ctx, args }, "User not created");
       throw new Error("User not created");
     }
 
