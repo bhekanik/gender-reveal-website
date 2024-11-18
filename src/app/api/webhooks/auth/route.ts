@@ -28,15 +28,28 @@ export async function POST(request: Request) {
     logger.info({ ...context, customer }, "Stripe customer created");
 
     try {
-      logger.info({}, "Creating new user");
+      logger.info(
+        {
+          email: data.data.email_addresses[0].email_address,
+          username:
+            data.data.username ?? data.data.email_addresses[0].email_address,
+          firstname: data.data.first_name ?? "",
+          lastname: data.data.last_name ?? "",
+          clerkUserId: data.data.id ?? "",
+          stripeCustomerId: customer.id ?? "",
+          role: "user",
+        },
+        "Creating new user"
+      );
 
       const user = await fetchMutation(api.users.createUser, {
         email: data.data.email_addresses[0].email_address,
-        username: data.data.email_addresses[0].email_address,
-        firstname: data.data.first_name,
-        lastname: data.data.last_name,
-        clerkUserId: data.data.id,
-        stripeCustomerId: customer.id,
+        username:
+          data.data.username ?? data.data.email_addresses[0].email_address,
+        firstname: data.data.first_name ?? "",
+        lastname: data.data.last_name ?? "",
+        clerkUserId: data.data.id ?? "",
+        stripeCustomerId: customer.id ?? "",
         role: "user",
       });
 

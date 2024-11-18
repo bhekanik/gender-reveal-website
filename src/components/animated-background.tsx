@@ -260,7 +260,7 @@ export function AnimatedBackground({
       </FloatingElement>
 
       {/* Content */}
-      <div className="relative z-10">{children}</div>
+      <div className="relative z-0">{children}</div>
     </main>
   );
 }

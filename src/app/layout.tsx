@@ -1,3 +1,4 @@
+import { Header } from "@/components/marketing/header";
 import { ConvexClientProvider } from "@/components/providers/convex-client-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata, Viewport } from "next";
@@ -108,10 +109,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" suppressHydrationWarning>
+      <body>
         <ClerkProvider
           publishableKey={
             process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ?? "pk_test_JA=="
@@ -120,6 +119,7 @@ export default function RootLayout({
         >
           <ConvexClientProvider>
             <NextTopLoader />
+            <Header />
             {children}
             <Toaster />
           </ConvexClientProvider>
