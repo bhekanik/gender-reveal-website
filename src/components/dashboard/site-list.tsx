@@ -1,6 +1,5 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,133 +9,85 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import { useMutation, useQuery } from "convex/react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { toast } from "sonner";
+import { cn } from "@/lib/utils";
+import { useQuery } from "convex/react";
+import { Baby, Calendar, Eye, Settings, Users } from "lucide-react";
+import Link from "next/link";
+import { EmptyState } from "./empty-state";
 
-interface Site {
-  _id: Id<"sites">;
-  _creationTime: number;
-  siteName: string;
-  paid: boolean;
-  published: boolean;
-  createdAt: number;
-  updatedAt: number;
+interface SiteListProps {
+  userId: Id<"users">;
 }
 
-export function SiteList({ userId }: { userId: Id<"users"> }) {
+export function SiteList({ userId }: SiteListProps) {
   const sites = useQuery(api.sites.getUserSites, { userId });
-  const createSite = useMutation(api.sites.createSite);
-  const deleteSite = useMutation(api.sites.deleteSite);
-  const router = useRouter();
-  const [newSiteName, setNewSiteName] = useState("");
-  const [isCreating, setIsCreating] = useState(false);
 
-  const handleCreateSite = async () => {
-    try {
-      const siteId = await createSite({
-        userId,
-        siteName: newSiteName,
-      });
-      setNewSiteName("");
-      setIsCreating(false);
-      toast.success("Site created successfully");
-      router.push(`/sites/${siteId}/settings`);
-    } catch (error) {
-      toast.error(
-        error instanceof Error ? error.message : "Failed to create site"
-      );
-    }
-  };
-
-  const handleDeleteSite = async (siteId: Id<"sites">) => {
-    try {
-      await deleteSite({ siteId });
-      toast.success("Site deleted successfully");
-    } catch (error) {
-      toast.error("Failed to delete site");
-    }
-  };
-
-  if (!sites) return <div>Loading...</div>;
+  if (!sites?.length) {
+    return <EmptyState />;
+  }
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">My Sites</h2>
-        <Button onClick={() => setIsCreating(true)}>Create New Site</Button>
-      </div>
-
-      {isCreating && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Create New Site</CardTitle>
-            <CardDescription>
-              Choose a unique name for your reveal site
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {sites.map((site) => (
+        <Card key={site._id} className="overflow-hidden">
+          <CardHeader className="border-b bg-muted/40 p-4">
+            <CardTitle className="flex items-center gap-2 text-lg font-semibold">
+              <Baby className="size-5" />
+              {site.siteName}
+            </CardTitle>
+            <CardDescription className="line-clamp-1">
+              {site.siteName || "No description"}
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <Input
-              placeholder="Enter site name"
-              value={newSiteName}
-              onChange={(e) => setNewSiteName(e.target.value)}
-            />
+          <CardContent className="p-4">
+            <div className="grid gap-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Calendar className="size-4" />
+                  {new Date(site.createdAt).toLocaleDateString()}
+                </div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Users className="size-4" />
+                  {0} visitors
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <div
+                  className={cn(
+                    "flex h-6 w-fit items-center gap-1 rounded-full px-2 text-xs font-medium",
+                    site.published
+                      ? "bg-green-500/10 text-green-700"
+                      : "bg-yellow-500/10 text-yellow-700"
+                  )}
+                >
+                  {site.published ? "Published" : "Draft"}
+                </div>
+                {site.paid && (
+                  <div className="flex h-6 w-fit items-center gap-1 rounded-full bg-blue-500/10 px-2 text-xs font-medium text-blue-700">
+                    Premium
+                  </div>
+                )}
+              </div>
+            </div>
           </CardContent>
-          <CardFooter className="flex justify-end space-x-2">
-            <Button variant="outline" onClick={() => setIsCreating(false)}>
-              Cancel
+          <CardFooter className="grid grid-cols-2 gap-2 border-t p-4">
+            <Button asChild variant="outline" size="sm">
+              <Link href={`/preview/${site._id}`}>
+                <Eye className="mr-2 size-4" />
+                Preview
+              </Link>
             </Button>
-            <Button onClick={handleCreateSite}>Create Site</Button>
+            <Button asChild variant="outline" size="sm">
+              <Link href={`/dashboard/sites/${site._id}/settings`}>
+                <Settings className="mr-2 size-4" />
+                Settings
+              </Link>
+            </Button>
           </CardFooter>
         </Card>
-      )}
-
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {sites.map((site: Site) => (
-          <Card key={site._id}>
-            <CardHeader>
-              <CardTitle>{site.siteName}</CardTitle>
-              <div className="flex space-x-2">
-                <Badge variant={site.published ? "default" : "secondary"}>
-                  {site.published ? "Published" : "Draft"}
-                </Badge>
-                <Badge variant={site.paid ? "default" : "secondary"}>
-                  {site.paid ? "Paid" : "Unpaid"}
-                </Badge>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground">
-                Created on {new Date(site.createdAt).toLocaleDateString()}
-              </p>
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              <Button
-                variant="outline"
-                onClick={() => router.push(`/sites/${site._id}/settings`)}
-              >
-                Edit
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => router.push(`/preview/${site._id}`)}
-              >
-                Preview
-              </Button>
-              <Button
-                variant="destructive"
-                onClick={() => handleDeleteSite(site._id)}
-              >
-                Delete
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+      ))}
     </div>
   );
 }

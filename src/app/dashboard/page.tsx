@@ -1,3 +1,5 @@
+import { DashboardHeader } from "@/components/dashboard/header";
+import { DashboardShell } from "@/components/dashboard/shell";
 import { SiteList } from "@/components/dashboard/site-list";
 import { api } from "@/convex/_generated/api";
 import { auth } from "@clerk/nextjs/server";
@@ -20,8 +22,14 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div className="container py-8">
-      <SiteList userId={user.id} />
-    </div>
+    <DashboardShell>
+      <DashboardHeader
+        heading="My Reveal Sites"
+        text="Create and manage your gender reveal sites."
+      />
+      <div className="grid gap-8">
+        <SiteList userId={user.id} />
+      </div>
+    </DashboardShell>
   );
 }

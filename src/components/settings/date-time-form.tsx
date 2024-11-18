@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -9,55 +10,58 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { api } from "@/convex/_generated/api";
 import { Doc } from "@/convex/_generated/dataModel";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Case from "case";
 import { useMutation } from "convex/react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
 
 const formSchema = z.object({
-  accountName: z.string().min(3).max(50),
-  siteName: z.string().min(3).max(50),
+  announcementDate: z.string(),
+  announcementTime: z.string(),
 });
 
-interface SettingsFormProps {
+interface DateTimeFormProps {
   settings: Doc<"settings">;
 }
 
-export function SettingsForm({ settings }: SettingsFormProps) {
+export function DateTimeForm({ settings }: DateTimeFormProps) {
   const updateSettings = useMutation(api.settings.update);
-  const updateSite = useMutation(api.sites.updateSite);
+
+  // Convert timestamp to date and time strings for form
+  const date = new Date(settings.announcementDate);
+  const defaultDate = date.toISOString().split("T")[0];
+  const defaultTime = date.toTimeString().split(" ")[0].slice(0, 5);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      accountName: settings.accountName,
-      siteName: Case.kebab(settings.accountName),
+      announcementDate: defaultDate,
+      announcementTime: defaultTime,
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
+      const dateTime = new Date(
+        `${values.announcementDate}T${values.announcementTime}`
+      );
+
       await updateSettings({
         siteId: settings.siteId,
-        accountName: values.accountName,
-        announcementDate: settings.announcementDate,
+        accountName: settings.accountName,
+        announcementDate: dateTime.getTime(),
         welcomeHeroText: settings.welcomeHeroText,
         revealText: settings.revealText,
         features: settings.features,
       });
-      await updateSite({
-        siteId: settings.siteId,
-        siteName: values.siteName,
-      });
-      toast.success("Settings updated successfully");
+
+      toast.success("Date and time updated successfully");
     } catch (error) {
-      toast.error("Failed to update settings");
+      toast.error("Failed to update date and time");
       console.error(error);
     }
   }
@@ -67,15 +71,15 @@ export function SettingsForm({ settings }: SettingsFormProps) {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="siteName"
+          name="announcementDate"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Site Name</FormLabel>
+              <FormLabel>Announcement Date</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input type="date" {...field} />
               </FormControl>
               <FormDescription>
-                This is the name that will be displayed in your dashboard.
+                The date when you want to reveal your baby&apos;s gender
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -84,16 +88,15 @@ export function SettingsForm({ settings }: SettingsFormProps) {
 
         <FormField
           control={form.control}
-          name="accountName"
+          name="announcementTime"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Account Name</FormLabel>
+              <FormLabel>Announcement Time</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input type="time" {...field} />
               </FormControl>
               <FormDescription>
-                This will be used in your site&apos;s URL: pinkandblue.live/
-                {field.value}
+                The time of day for the reveal (in your local timezone)
               </FormDescription>
               <FormMessage />
             </FormItem>

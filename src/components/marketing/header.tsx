@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { config } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { Baby, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MobileMenu } from "./mobile-menu";
@@ -27,8 +28,14 @@ export function Header({ className }: { className?: string }) {
             href="/"
             className="flex items-center space-x-3 transition-opacity hover:opacity-90"
           >
-            <div className="relative size-9 rounded-lg bg-gradient-to-br from-brand-pink via-primary to-brand-blue">
-              <Baby className="absolute inset-0 m-auto size-5 text-white" />
+            <div className="relative size-12 rounded-lg bg-gradient-to-br from-brand-pink via-primary to-brand-blue">
+              <Image
+                src="/logo.png"
+                alt={`${config.projectName} Logo`}
+                className="absolute inset-0 m-auto size-10 text-black"
+                width={80}
+                height={80}
+              />
             </div>
             <span className="hidden font-display text-xl font-bold md:block">
               {config.projectName}

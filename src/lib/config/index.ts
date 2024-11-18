@@ -2,7 +2,7 @@ const isDev = process.env.NODE_ENV === "development";
 const domain = isDev ? "localhost:3000" : "pinkandblue.live";
 
 export const config = {
-  projectName: "Pink and Blue",
+  projectName: "Pink & Blue",
   projectDescription: "Create your personalized baby gender reveal site",
   baseUrl: `http://${domain}`,
   domain,
