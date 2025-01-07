@@ -1,6 +1,5 @@
 import { config as siteConfig } from "@/lib/config";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-// import { fetchQuery } from "convex/nextjs";
 import { NextResponse } from "next/server";
 
 const isProtectedRoute = createRouteMatcher(["/dashboard(.*)", "/account(.*)"]);
@@ -42,20 +41,9 @@ export default clerkMiddleware(async (auth, req) => {
   }
 
   try {
-    // Look up the site by subdomain
-    // const site = await fetchQuery(api.sites.getSiteBySubdomain, {
-    //   subdomain,
-    // });
-    //
-    // if (!site) {
-    //   // If no site is found, you might want to redirect to a 404 page
-    //   // or show some kind of error page
-    //   return NextResponse.redirect(new URL("/404", req.url));
-    // }
-
     // Rewrite the URL to the dashboard path
     const url = req.nextUrl.clone();
-    // url.pathname = `/sites/${site._id}`;
+    url.pathname = `/sites/${subdomain}`;
 
     return NextResponse.rewrite(url);
   } catch (error) {

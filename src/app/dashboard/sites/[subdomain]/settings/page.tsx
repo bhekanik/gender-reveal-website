@@ -35,14 +35,14 @@ import { useState } from "react";
 
 export default function SettingsPage() {
   const params = useParams();
-  const siteId = params.siteId as Id<"sites">;
-  const settings = useQuery(api.settings.get, { siteId });
-  const site = useQuery(api.sites.getSite, { siteId });
+  const subdomain = params.subdomain as string;
+  const site = useQuery(api.sites.getSiteBySubdomain, { subdomain });
+  const settings = useQuery(api.settings.get, { siteId: site!._id });
   const [activeTab, setActiveTab] = useState("general");
 
   if (!settings || !site) {
     return (
-      <SiteLayout siteId={siteId}>
+      <SiteLayout siteId={site?._id ?? ("" as Id<"sites">)}>
         <div className="container max-w-5xl space-y-6 p-8">
           <Skeleton className="h-8 w-[200px]" />
           <Skeleton className="h-4 w-[300px]" />
@@ -65,7 +65,7 @@ export default function SettingsPage() {
   ];
 
   return (
-    <SiteLayout siteId={siteId}>
+    <SiteLayout siteId={site._id}>
       <div className="container max-w-5xl space-y-6 p-8">
         <div className="flex items-center justify-between">
           <div>
@@ -111,7 +111,7 @@ export default function SettingsPage() {
                   <RevealSettingsForm settings={settings} />
                 </TabsContent>
                 <TabsContent value="baby">
-                  <BabyDetailsForm siteId={siteId} />
+                  <BabyDetailsForm siteId={site._id} />
                 </TabsContent>
                 <TabsContent value="date">
                   <DateTimeForm settings={settings} />
