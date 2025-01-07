@@ -12,7 +12,6 @@ import {
 import { api } from "@/convex/_generated/api";
 import { Doc } from "@/convex/_generated/dataModel";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Case from "case";
 import { useMutation } from "convex/react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -23,13 +22,22 @@ import { Input } from "../ui/input";
 const formSchema = z.object({
   accountName: z.string().min(3).max(50),
   siteName: z.string().min(3).max(50),
+  subdomain: z
+    .string()
+    .min(3)
+    .max(50)
+    .regex(/^[a-z0-9-]+$/, {
+      message:
+        "Subdomain can only contain lowercase letters, numbers, and hyphens",
+    }),
 });
 
 interface SettingsFormProps {
   settings: Doc<"settings">;
+  site: Doc<"sites">;
 }
 
-export function SettingsForm({ settings }: SettingsFormProps) {
+export function SettingsForm({ settings, site }: SettingsFormProps) {
   const updateSettings = useMutation(api.settings.update);
   const updateSite = useMutation(api.sites.updateSite);
 
@@ -37,7 +45,8 @@ export function SettingsForm({ settings }: SettingsFormProps) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       accountName: settings.accountName,
-      siteName: Case.kebab(settings.accountName),
+      siteName: site.siteName,
+      subdomain: site.subdomain,
     },
   });
 
@@ -54,6 +63,7 @@ export function SettingsForm({ settings }: SettingsFormProps) {
       await updateSite({
         siteId: settings.siteId,
         siteName: values.siteName,
+        subdomain: values.subdomain,
       });
       toast.success("Settings updated successfully");
     } catch (error) {
@@ -76,6 +86,29 @@ export function SettingsForm({ settings }: SettingsFormProps) {
               </FormControl>
               <FormDescription>
                 This is the name that will be displayed in your dashboard.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="subdomain"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Subdomain</FormLabel>
+              <FormControl>
+                <div className="flex items-center space-x-2">
+                  <Input {...field} />
+                  <span className="text-muted-foreground">
+                    .pinkandblue.live
+                  </span>
+                </div>
+              </FormControl>
+              <FormDescription>
+                This is your site&apos;s custom subdomain. It can only contain
+                lowercase letters, numbers, and hyphens.
               </FormDescription>
               <FormMessage />
             </FormItem>

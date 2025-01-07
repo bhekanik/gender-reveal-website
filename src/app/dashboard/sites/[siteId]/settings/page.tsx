@@ -105,7 +105,7 @@ export default function SettingsPage() {
               </TabsList>
               <div className="p-6">
                 <TabsContent value="general">
-                  <SettingsForm settings={settings} />
+                  <SettingsForm settings={settings} site={site} />
                 </TabsContent>
                 <TabsContent value="reveal">
                   <RevealSettingsForm settings={settings} />

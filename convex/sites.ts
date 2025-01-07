@@ -1,3 +1,4 @@
+import { faker } from "@faker-js/faker";
 import Case from "case";
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
@@ -29,6 +30,7 @@ export const createSite = mutation({
   args: {
     userId: v.id("users"),
     siteName: v.string(),
+    subdomain: v.string(),
   },
   handler: async (ctx, args) => {
     // Check if siteName is already taken
@@ -41,12 +43,35 @@ export const createSite = mutation({
       throw new Error("Site name already taken");
     }
 
+    // Check if subdomain is already taken and generate a new one if needed
+    let subdomain = args.subdomain;
+    let existingSubdomain = await ctx.db
+      .query("sites")
+      .withIndex("by_subdomain", (q) => q.eq("subdomain", subdomain))
+      .first();
+
+    while (existingSubdomain) {
+      // Generate a new random subdomain
+      const adjective = faker.word.adjective();
+      const noun = faker.word.noun();
+      subdomain = `${adjective}-${noun}`.toLowerCase();
+
+      existingSubdomain = await ctx.db
+        .query("sites")
+        .withIndex("by_subdomain", (q) => q.eq("subdomain", subdomain))
+        .first();
+    }
+
+    // Update args.subdomain with the final valid subdomain
+    args.subdomain = subdomain;
+
     const now = Date.now();
 
     // Create the site
     const siteId = await ctx.db.insert("sites", {
       userId: args.userId,
       siteName: args.siteName,
+      subdomain: args.subdomain,
       paid: false,
       published: false,
       createdAt: now,
@@ -88,6 +113,7 @@ export const updateSite = mutation({
   args: {
     siteId: v.id("sites"),
     siteName: v.string(),
+    subdomain: v.string(),
   },
   handler: async (ctx, args) => {
     const site = await ctx.db.get(args.siteId);
@@ -107,8 +133,21 @@ export const updateSite = mutation({
       }
     }
 
+    // Check if new subdomain is already taken by another site
+    if (args.subdomain !== site.subdomain) {
+      const existingSubdomain = await ctx.db
+        .query("sites")
+        .withIndex("by_subdomain", (q) => q.eq("subdomain", args.subdomain))
+        .first();
+
+      if (existingSubdomain) {
+        throw new Error("Subdomain already taken");
+      }
+    }
+
     await ctx.db.patch(args.siteId, {
       siteName: args.siteName,
+      subdomain: args.subdomain,
       updatedAt: Date.now(),
     });
   },
@@ -192,5 +231,17 @@ export const updateSiteStatus = mutation({
     }
 
     await ctx.db.patch(args.siteId, updates);
+  },
+});
+
+// Add a new query to get site by subdomain
+export const getSiteBySubdomain = query({
+  args: { subdomain: v.string() },
+  handler: async (ctx, args) => {
+    const site = await ctx.db
+      .query("sites")
+      .withIndex("by_subdomain", (q) => q.eq("subdomain", args.subdomain))
+      .first();
+    return site;
   },
 });

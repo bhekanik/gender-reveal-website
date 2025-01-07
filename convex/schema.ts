@@ -27,13 +27,15 @@ export default defineSchema({
   sites: defineTable({
     userId: v.id("users"),
     siteName: v.string(), // Used as the site identifier in URLs
+    subdomain: v.string(), // New field for subdomain
     paid: v.boolean(),
     published: v.boolean(),
     createdAt: v.number(),
     updatedAt: v.number(),
   })
     .index("by_userId", ["userId"])
-    .index("by_siteName", ["siteName"]),
+    .index("by_siteName", ["siteName"])
+    .index("by_subdomain", ["subdomain"]), // New index for subdomain lookups
 
   settings: defineTable({
     siteId: v.id("sites"),

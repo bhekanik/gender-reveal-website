@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { api } from "@/convex/_generated/api";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@clerk/nextjs";
+import { faker } from "@faker-js/faker";
 import { useMutation, useQuery } from "convex/react";
 import { Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -33,10 +34,11 @@ export function DashboardHeader({
     if (!user) return;
 
     try {
-      const defaultSiteName = `My Reveal Site ${new Date().getTime()}`;
+      const defaultSiteName = `${faker.word.adjective()} ${faker.word.noun()}`;
       const siteId = await createSite({
         userId: user.id,
         siteName: defaultSiteName,
+        subdomain: defaultSiteName.toLowerCase().replace(/\s+/g, "-"),
       });
 
       toast.success("Site created successfully!");

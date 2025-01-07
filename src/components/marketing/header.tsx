@@ -56,32 +56,6 @@ export function Header({ className }: { className?: string }) {
               Home
             </Link>
 
-            <Link
-              className={cn(
-                "px-3 py-2 text-sm rounded-md transition-colors",
-                pathname === "/examples"
-                  ? "text-primary font-medium"
-                  : "text-muted-foreground hover:text-primary hover:bg-muted"
-              )}
-              href="/examples"
-            >
-              Examples
-            </Link>
-
-            <SignedOut>
-              <Link
-                className={cn(
-                  "px-3 py-2 text-sm rounded-md transition-colors",
-                  pathname === "/pricing"
-                    ? "text-primary font-medium"
-                    : "text-muted-foreground hover:text-primary hover:bg-muted"
-                )}
-                href="/pricing"
-              >
-                Pricing
-              </Link>
-            </SignedOut>
-
             <SignedIn>
               <Link
                 className={cn(

@@ -11,6 +11,7 @@ import { redirect, useParams } from "next/navigation";
 
 export default function HomePage() {
   const { siteId } = useParams();
+  console.log("siteId:", siteId);
   const settings = useQuery(api.settings.get, {
     siteId: siteId as Id<"sites">,
   });
