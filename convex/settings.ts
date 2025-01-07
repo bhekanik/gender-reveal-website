@@ -12,6 +12,26 @@ export const get = query({
   },
 });
 
+export const getBySubdomain = query({
+  args: { subdomain: v.string() },
+  handler: async (ctx, args) => {
+    const site = await ctx.db
+      .query("sites")
+      .withIndex("by_subdomain", (q) => q.eq("subdomain", args.subdomain))
+      .first();
+
+    if (!site) {
+      throw new Error("Site not found");
+    }
+
+    const settings = await ctx.db
+      .query("settings")
+      .withIndex("by_siteId", (q) => q.eq("siteId", site._id))
+      .first();
+    return settings;
+  },
+});
+
 export const getBabies = query({
   args: { siteId: v.id("sites") },
   handler: async (ctx, args) => {
@@ -20,6 +40,26 @@ export const getBabies = query({
       .withIndex("by_siteId", (q) => q.eq("siteId", args.siteId))
       .collect();
 
+    return babies;
+  },
+});
+
+export const getBabiesBySubdomain = query({
+  args: { subdomain: v.string() },
+  handler: async (ctx, args) => {
+    const site = await ctx.db
+      .query("sites")
+      .withIndex("by_subdomain", (q) => q.eq("subdomain", args.subdomain))
+      .first();
+
+    if (!site) {
+      throw new Error("Site not found");
+    }
+
+    const babies = await ctx.db
+      .query("babies")
+      .withIndex("by_siteId", (q) => q.eq("siteId", site._id))
+      .collect();
     return babies;
   },
 });

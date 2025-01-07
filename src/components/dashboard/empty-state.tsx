@@ -7,7 +7,6 @@ import { faker } from "@faker-js/faker";
 import Case from "case";
 import { useMutation, useQuery } from "convex/react";
 import { Sparkles } from "lucide-react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -54,13 +53,10 @@ export function EmptyState() {
         <Button
           size="lg"
           className="mt-6 bg-gradient-to-r from-brand-pink to-brand-blue hover:opacity-90"
-          asChild
           onClick={handleCreateSite}
         >
-          <Link href="/dashboard/sites/create">
-            <Sparkles className="mr-2 h-4 w-4" />
-            Create Your First Reveal
-          </Link>
+          <Sparkles className="mr-2 h-4 w-4" />
+          Create Your First Reveal
         </Button>
       </div>
     </div>

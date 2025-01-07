@@ -3,7 +3,6 @@
 import { AnimatedBackground } from "@/components/animated-background";
 import { Button } from "@/components/ui/button";
 import { api } from "@/convex/_generated/api";
-import { Id } from "@/convex/_generated/dataModel";
 import { useQuery } from "convex/react";
 import { motion } from "framer-motion";
 import { Share2 } from "lucide-react";
@@ -39,14 +38,14 @@ const FloatingElement = ({
 );
 
 export default function RevealPage() {
-  const { siteId } = useParams();
+  const { subdomain } = useParams();
   const announcementDate = useQuery(api.settings.getAnnouncementDate);
-  const settings = useQuery(api.settings.get, {
-    siteId: siteId as Id<"sites">,
+  const settings = useQuery(api.settings.getBySubdomain, {
+    subdomain: subdomain as string,
   });
   console.log("settings:", settings);
-  const babies = useQuery(api.settings.getBabies, {
-    siteId: siteId as Id<"sites">,
+  const babies = useQuery(api.settings.getBabiesBySubdomain, {
+    subdomain: subdomain as string,
   });
   const [isRevealed, setIsRevealed] = useState(false);
   const [windowSize, setWindowSize] = useState({

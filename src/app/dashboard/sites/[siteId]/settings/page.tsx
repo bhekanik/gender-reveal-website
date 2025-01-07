@@ -20,6 +20,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
+import { config } from "@/lib/config";
 import { useQuery } from "convex/react";
 import {
   Baby,
@@ -30,19 +31,20 @@ import {
   Shield,
   Sparkles,
 } from "lucide-react";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
 export default function SettingsPage() {
   const params = useParams();
-  const subdomain = params.subdomain as string;
-  const site = useQuery(api.sites.getSiteBySubdomain, { subdomain });
-  const settings = useQuery(api.settings.get, { siteId: site!._id });
+  const siteId = params.siteId as Id<"sites">;
+  const settings = useQuery(api.settings.get, { siteId });
+  const site = useQuery(api.sites.getSite, { siteId });
   const [activeTab, setActiveTab] = useState("general");
 
   if (!settings || !site) {
     return (
-      <SiteLayout siteId={site?._id ?? ("" as Id<"sites">)}>
+      <SiteLayout siteId={siteId}>
         <div className="container max-w-5xl space-y-6 p-8">
           <Skeleton className="h-8 w-[200px]" />
           <Skeleton className="h-4 w-[300px]" />
@@ -65,7 +67,7 @@ export default function SettingsPage() {
   ];
 
   return (
-    <SiteLayout siteId={site._id}>
+    <SiteLayout siteId={siteId}>
       <div className="container max-w-5xl space-y-6 p-8">
         <div className="flex items-center justify-between">
           <div>
@@ -74,9 +76,11 @@ export default function SettingsPage() {
               Manage your site preferences and configuration.
             </p>
           </div>
-          <Button>
-            View Site
-            <ChevronRight className="ml-2 h-4 w-4" />
+          <Button asChild>
+            <Link href={`https://${site.subdomain}.${config.domain}`}>
+              View Site
+              <ChevronRight className="ml-2 h-4 w-4" />
+            </Link>
           </Button>
         </div>
         <Separator />
@@ -111,7 +115,7 @@ export default function SettingsPage() {
                   <RevealSettingsForm settings={settings} />
                 </TabsContent>
                 <TabsContent value="baby">
-                  <BabyDetailsForm siteId={site._id} />
+                  <BabyDetailsForm siteId={siteId} />
                 </TabsContent>
                 <TabsContent value="date">
                   <DateTimeForm settings={settings} />

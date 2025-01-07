@@ -5,15 +5,14 @@ import { CountdownTimer } from "@/components/countdown-timer";
 import { GenderPoll } from "@/components/gender-poll";
 import { WelcomeHero } from "@/components/welcome-hero";
 import { api } from "@/convex/_generated/api";
-import { Id } from "@/convex/_generated/dataModel";
 import { useQuery } from "convex/react";
 import { redirect, useParams } from "next/navigation";
 
 export default function HomePage() {
-  const { siteId } = useParams();
-  console.log("siteId:", siteId);
-  const settings = useQuery(api.settings.get, {
-    siteId: siteId as Id<"sites">,
+  const { subdomain } = useParams();
+  console.log("subdomain:", subdomain);
+  const settings = useQuery(api.settings.getBySubdomain, {
+    subdomain: subdomain as string,
   });
   console.log("settings:", settings);
 
