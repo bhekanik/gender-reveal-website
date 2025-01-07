@@ -31,8 +31,8 @@ export default clerkMiddleware(async (auth, req) => {
   console.log("hostname:", hostname);
   console.log("baseDomain:", baseDomain);
 
-  // Skip if this is the main domain
-  if (hostname === baseDomain) {
+  // Skip if this is the main domain or www subdomain
+  if (hostname === baseDomain || hostname === `www.${baseDomain}`) {
     return NextResponse.next();
   }
 
@@ -41,7 +41,8 @@ export default clerkMiddleware(async (auth, req) => {
 
   console.log("subdomain:", subdomain);
 
-  if (!subdomain) {
+  // Skip if no subdomain or if it's www
+  if (!subdomain || subdomain === "www") {
     return NextResponse.next();
   }
 
@@ -50,19 +51,22 @@ export default clerkMiddleware(async (auth, req) => {
     const response = await fetch(`${req.url}/api/sites/lookup/${subdomain}`);
 
     if (!response.ok) {
-      return NextResponse.redirect(new URL("/404", req.url));
+      return NextResponse.next();
     }
 
     const site = await response.json();
+    console.log("site:", site);
 
     // Only allow access to published sites
     if (!site.published) {
-      return NextResponse.redirect(new URL("/404", req.url));
+      return NextResponse.next();
     }
 
     // Rewrite the URL to the sites path with the site ID
     const url = req.nextUrl.clone();
     url.pathname = `/sites/${site._id}`;
+
+    console.log("url:", url);
 
     return NextResponse.rewrite(url);
   } catch (error) {

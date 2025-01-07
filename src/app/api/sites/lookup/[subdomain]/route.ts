@@ -9,7 +9,7 @@ export async function GET(
   const { subdomain } = await props.params;
   try {
     const site = await fetchQuery(api.sites.getSiteBySubdomain, {
-      subdomain: subdomain,
+      subdomain,
     });
 
     if (!site) {
