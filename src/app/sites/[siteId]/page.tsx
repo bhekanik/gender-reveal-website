@@ -6,17 +6,10 @@ import { GenderPoll } from "@/components/gender-poll";
 import { WelcomeHero } from "@/components/welcome-hero";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import { redirect, useParams } from "next/navigation";
 
 export default function PreviewPage() {
-  const user = useUser();
-
-  if (!user.isSignedIn) {
-    redirect("/sign-in");
-  }
-
   const { siteId } = useParams();
   const settings = useQuery(api.settings.get, {
     siteId: siteId as Id<"sites">,
