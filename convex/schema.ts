@@ -71,10 +71,11 @@ export default defineSchema({
     .index("by_visitorId", ["visitorId"]),
 
   quizQuestions: defineTable({
-    siteId: v.id("sites"),
+    siteId: v.optional(v.id("sites")),
     question: v.string(),
     options: v.array(v.string()),
     easterEggOptionIndex: v.optional(v.number()),
+    easterEgg: v.optional(v.string()),
     createdAt: v.number(),
     updatedAt: v.number(),
   }).index("by_siteId", ["siteId"]),

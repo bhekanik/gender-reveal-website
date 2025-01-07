@@ -116,6 +116,9 @@ importers:
       react:
         specifier: 19.0.0-rc-66855b96-20241106
         version: 19.0.0-rc-66855b96-20241106
+      react-canvas-confetti:
+        specifier: ^2.0.7
+        version: 2.0.7(react@19.0.0-rc-66855b96-20241106)
       react-confetti:
         specifier: ^6.1.0
         version: 6.1.0(react@19.0.0-rc-66855b96-20241106)
@@ -2205,6 +2208,9 @@ packages:
     peerDependencies:
       react: ^18 || ^19
 
+  '@types/canvas-confetti@1.9.0':
+    resolution: {integrity: sha512-aBGj/dULrimR1XDZLtG9JwxX1b4HPRF6CX9Yfwh3NvstZEm1ZL7RBnel4keCPSqs1ANRu1u2Aoz9R+VmtjYuTg==}
+
   '@types/connect@3.4.36':
     resolution: {integrity: sha512-P63Zd/JUGq+PdrM1lv0Wv5SBYeA2+CORvbrXbngriYY0jzLUWfQMQQxOhjONEz/wlHOAxOdY7CY65rgQdTjq2w==}
 
@@ -2632,6 +2638,9 @@ packages:
 
   caniuse-lite@1.0.30001680:
     resolution: {integrity: sha512-rPQy70G6AGUMnbwS1z6Xg+RkHYPAi18ihs47GH0jcxIG7wArmPgY3XbS2sRdBbxJljp3thdT8BIqv9ccCypiPA==}
+
+  canvas-confetti@1.9.3:
+    resolution: {integrity: sha512-rFfTURMvmVEX1gyXFgn5QMn81bYk70qa0HLzcIOSVEyl57n6o9ItHeBtUSWdvKAPY0xlvBHno4/v3QPrT83q9g==}
 
   case@1.6.3:
     resolution: {integrity: sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==}
@@ -4256,6 +4265,11 @@ packages:
 
   randombytes@2.1.0:
     resolution: {integrity: sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==}
+
+  react-canvas-confetti@2.0.7:
+    resolution: {integrity: sha512-DIj44O35TPAwJkUSIZqWdVsgAMHtVf8h7YNmnr3jF3bn5mG+d7Rh9gEcRmdJfYgRzh6K+MAGujwUoIqQyLnMJw==}
+    peerDependencies:
+      react: '*'
 
   react-confetti@6.1.0:
     resolution: {integrity: sha512-7Ypx4vz0+g8ECVxr88W9zhcQpbeujJAVqL14ZnXJ3I23mOI9/oBVTQ3dkJhUmB0D6XOtCZEM6N0Gm9PMngkORw==}
@@ -7270,6 +7284,8 @@ snapshots:
       '@tanstack/query-core': 5.60.5
       react: 19.0.0-rc-66855b96-20241106
 
+  '@types/canvas-confetti@1.9.0': {}
+
   '@types/connect@3.4.36':
     dependencies:
       '@types/node': 20.17.6
@@ -7792,6 +7808,8 @@ snapshots:
   camelcase-css@2.0.1: {}
 
   caniuse-lite@1.0.30001680: {}
+
+  canvas-confetti@1.9.3: {}
 
   case@1.6.3: {}
 
@@ -9533,6 +9551,12 @@ snapshots:
   randombytes@2.1.0:
     dependencies:
       safe-buffer: 5.2.1
+
+  react-canvas-confetti@2.0.7(react@19.0.0-rc-66855b96-20241106):
+    dependencies:
+      '@types/canvas-confetti': 1.9.0
+      canvas-confetti: 1.9.3
+      react: 19.0.0-rc-66855b96-20241106
 
   react-confetti@6.1.0(react@19.0.0-rc-66855b96-20241106):
     dependencies:

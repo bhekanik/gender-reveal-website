@@ -49,6 +49,7 @@
     "posthog-js": "^1.186.1",
     "posthog-node": "^4.2.1",
     "react": "19.0.0-rc-66855b96-20241106",
+    "react-canvas-confetti": "^2.0.7",
     "react-confetti": "^6.1.0",
     "react-dom": "19.0.0-rc-66855b96-20241106",
     "react-hook-form": "^7.53.2",

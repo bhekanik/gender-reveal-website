@@ -1,8 +1,11 @@
 "use client";
 
 import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
 import { useQuery } from "convex/react";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface TimeUnit {
@@ -14,6 +17,9 @@ export function CountdownTimer() {
   const [timeUnits, setTimeUnits] = useState<TimeUnit[]>([]);
   const [isExpired, setIsExpired] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  const params = useParams();
+  const siteId = params.siteId as Id<"sites">;
 
   const announcementDate = useQuery(api.settings.getAnnouncementDate);
 
@@ -94,10 +100,31 @@ export function CountdownTimer() {
 
   if (isExpired) {
     return (
-      <div className="p-8 md:p-12 rounded-2xl bg-white shadow-sm border border-neutral-200">
+      <div className="p-8 md:p-12 rounded-2xl bg-white shadow-sm border border-neutral-200 space-y-6">
         <h2 className="text-3xl md:text-4xl font-semibold text-center">
           The Big Reveal Has Happened!
         </h2>
+        <div className="flex justify-center">
+          <Link
+            href={`/preview/${siteId}/reveal`}
+            className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-blue-500 text-white hover:opacity-90 transition"
+          >
+            <span>View Gender Reveal</span>
+            <svg
+              className="ml-2 h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 7l5 5m0 0l-5 5m5-5H6"
+              />
+            </svg>
+          </Link>
+        </div>
       </div>
     );
   }

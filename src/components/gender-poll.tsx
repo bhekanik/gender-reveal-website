@@ -5,39 +5,28 @@ import { Id } from "@/convex/_generated/dataModel";
 import { useVisitorId } from "@/lib/hooks/use-user-id";
 import { useMutation, useQuery } from "convex/react";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
 
 export function GenderPoll() {
   const visitorId = useVisitorId();
   const params = useParams();
   const siteId = params.siteId as Id<"sites">;
 
-  const [hasVoted, setHasVoted] = useState(false);
   const castVote = useMutation(api.votes.castVote);
+  const userHasVoted = useQuery(api.votes.userHasVoted, { siteId, visitorId });
   const results = useQuery(api.votes.getVoteResults, { siteId }) ?? {
     boy: 0,
     girl: 0,
     total: 0,
   };
 
-  // Check if user has voted on component mount
-  useEffect(() => {
-    const voted = localStorage.getItem(`gender-poll-voted-${visitorId}`);
-    if (voted) setHasVoted(true);
-  }, [visitorId]);
-
   const handleVote = async (gender: "boy" | "girl") => {
     try {
       await castVote({ siteId, gender, visitorId: visitorId });
-      localStorage.setItem(`gender-poll-voted-${visitorId}`, "true");
-      setHasVoted(true);
     } catch (error) {
       if (
         error instanceof Error &&
         error.message === "User has already voted"
       ) {
-        setHasVoted(true);
-      } else {
         console.error("Failed to cast vote:", error);
       }
     }
@@ -49,7 +38,7 @@ export function GenderPoll() {
         What&apos;s Your Guess?
       </h2>
 
-      {!hasVoted ? (
+      {!userHasVoted ? (
         <div className="flex gap-4 justify-center">
           <button
             onClick={() => handleVote("boy")}

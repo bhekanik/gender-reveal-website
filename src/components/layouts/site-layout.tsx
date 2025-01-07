@@ -49,8 +49,12 @@ export function SiteLayout({ children, siteId }: SiteLayoutProps) {
   }
 
   const navItems = [
-    { path: `/sites/${siteId}`, label: "Overview", icon: Baby },
-    { path: `/sites/${siteId}/settings`, label: "Settings", icon: Settings },
+    { path: `/dashboard/sites/${siteId}`, label: "Overview", icon: Baby },
+    {
+      path: `/dashboard/sites/${siteId}/settings`,
+      label: "Settings",
+      icon: Settings,
+    },
   ];
 
   return (

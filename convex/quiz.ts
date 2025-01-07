@@ -11,7 +11,7 @@ export const startSession = mutation({
     // Get all questions for this site
     const questions = await ctx.db
       .query("quizQuestions")
-      .withIndex("by_siteId", (q) => q.eq("siteId", args.siteId))
+      // .withIndex("by_siteId", (q) => q.eq("siteId", args.siteId))
       .collect();
 
     // Get all questions this visitor has already answered for this site

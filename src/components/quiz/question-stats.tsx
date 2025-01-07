@@ -22,7 +22,7 @@ export function QuestionStats({
   const params = useParams();
   const siteId = params.siteId as Id<"sites">;
 
-  const questionStats = useQuery(api.questions.getQuestionStats, {
+  const questionStats = useQuery(api.quiz.getQuestionStats, {
     questionId,
     siteId,
   }) ?? {

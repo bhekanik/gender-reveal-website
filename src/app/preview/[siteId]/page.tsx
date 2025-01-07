@@ -32,7 +32,7 @@ export default function PreviewPage() {
   const expired = now > targetDate;
 
   if (expired) {
-    redirect("/reveal");
+    redirect(`/preview/${siteId}/reveal`);
   }
 
   return (

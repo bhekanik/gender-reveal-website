@@ -21,9 +21,9 @@ export function Quiz() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showingStats, setShowingStats] = useState(false);
 
-  const startSession = useMutation(api.questions.startSession);
-  const submitAnswer = useMutation(api.questions.submitAnswer);
-  const currentSession = useQuery(api.questions.getCurrentSession, {
+  const startSession = useMutation(api.quiz.startSession);
+  const submitAnswer = useMutation(api.quiz.submitAnswer);
+  const currentSession = useQuery(api.quiz.getCurrentSession, {
     visitorId,
     siteId,
   });
@@ -87,14 +87,14 @@ export function Quiz() {
             </div>
             <div className="flex gap-4 justify-center">
               <Button
-                onClick={() => router.push("/")}
+                onClick={() => router.push(`/preview/${siteId}`)}
                 variant="outline"
                 className="px-6 py-3 rounded-full"
               >
                 Back to Home
               </Button>
               <Button
-                onClick={() => router.push("#poll")}
+                onClick={() => router.push(`/preview/${siteId}#poll`)}
                 className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white hover:opacity-90"
               >
                 Make Your Gender Prediction
@@ -118,7 +118,7 @@ export function Quiz() {
 
             <div className="flex gap-4 justify-center">
               <Button
-                onClick={() => router.push("/")}
+                onClick={() => router.push(`/preview/${siteId}`)}
                 variant="outline"
                 className="px-6 py-3 rounded-full"
               >
@@ -165,7 +165,7 @@ export function Quiz() {
             </p>
             <div className="flex gap-4 justify-center">
               <Button
-                onClick={() => router.push("/")}
+                onClick={() => router.push(`/preview/${siteId}`)}
                 variant="outline"
                 className="px-6 py-3 rounded-full"
               >

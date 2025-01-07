@@ -31,6 +31,21 @@ export const castVote = mutation({
   },
 });
 
+export const userHasVoted = query({
+  args: {
+    siteId: v.id("sites"),
+    visitorId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const vote = await ctx.db
+      .query("votes")
+      .filter((q) => q.eq(q.field("visitorId"), args.visitorId))
+      .first();
+
+    return vote ? true : false;
+  },
+});
+
 export const getVoteResults = query({
   args: {
     siteId: v.id("sites"),

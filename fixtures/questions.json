@@ -7,7 +7,7 @@
             "Gardening",
             "Cook"
         ],
-        "easter_egg": "Gardening subtly hints at growth and nurturing.",
+        "easterEgg": "Gardening subtly hints at growth and nurturing.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -19,7 +19,7 @@
             "Rock",
             "Pop"
         ],
-        "easter_egg": "Pop sounds like \"pop\" as in \"pop the news.\"",
+        "easterEgg": "Pop sounds like \"pop\" as in \"pop the news.\"",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -31,7 +31,7 @@
             "Autumn",
             "Winter"
         ],
-        "easter_egg": "Spring symbolizes new beginnings.",
+        "easterEgg": "Spring symbolizes new beginnings.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -43,7 +43,7 @@
             "City",
             "Countryside"
         ],
-        "easter_egg": "Neutral options; Beach could hint at \"sea\" (pronounced like \"she\").",
+        "easterEgg": "Neutral options; Beach could hint at \"sea\" (pronounced like \"she\").",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -55,7 +55,7 @@
             "Evening",
             "Night"
         ],
-        "easter_egg": "Evening contains \"Eve,\" a female name.",
+        "easterEgg": "Evening contains \"Eve,\" a female name.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -67,7 +67,7 @@
             "Gone with the Wind",
             "Star Wars"
         ],
-        "easter_egg": "The Wizard of Oz features Dorothy, a strong female lead.",
+        "easterEgg": "The Wizard of Oz features Dorothy, a strong female lead.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -79,7 +79,7 @@
             "Strawberry",
             "Orange"
         ],
-        "easter_egg": "Strawberry often associated with the color pink.",
+        "easterEgg": "Strawberry often associated with the color pink.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -91,7 +91,7 @@
             "Rabbit",
             "Fish"
         ],
-        "easter_egg": "Cat can symbolize independence, often linked to femininity.",
+        "easterEgg": "Cat can symbolize independence, often linked to femininity.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -103,7 +103,7 @@
             "Daisy",
             "Tulip"
         ],
-        "easter_egg": "All options are flowers, commonly associated with girls.",
+        "easterEgg": "All options are flowers, commonly associated with girls.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -115,7 +115,7 @@
             "Snowy",
             "Windy"
         ],
-        "easter_egg": "Rainy can lead to rainbows, symbolizing joy and promise.",
+        "easterEgg": "Rainy can lead to rainbows, symbolizing joy and promise.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -127,7 +127,7 @@
             "Purple",
             "Yellow"
         ],
-        "easter_egg": "Purple combines pink and blue.",
+        "easterEgg": "Purple combines pink and blue.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -139,7 +139,7 @@
             "Unicorn",
             "Mermaid"
         ],
-        "easter_egg": "Unicorn and Mermaid often appear in stories for girls.",
+        "easterEgg": "Unicorn and Mermaid often appear in stories for girls.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -151,7 +151,7 @@
             "Train",
             "Boat"
         ],
-        "easter_egg": "Neutral options.",
+        "easterEgg": "Neutral options.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -163,7 +163,7 @@
             "Fruit salad",
             "Cookies"
         ],
-        "easter_egg": "Cookies might hint at sugar and spice, from the nursery rhyme.",
+        "easterEgg": "Cookies might hint at sugar and spice, from the nursery rhyme.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -175,7 +175,7 @@
             "Basketball",
             "Swimming"
         ],
-        "easter_egg": "Tennis has prominent female athletes.",
+        "easterEgg": "Tennis has prominent female athletes.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -187,7 +187,7 @@
             "Scrabble",
             "Candy Land"
         ],
-        "easter_egg": "Candy Land is colorful and whimsical.",
+        "easterEgg": "Candy Land is colorful and whimsical.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -199,7 +199,7 @@
             "Telepathy",
             "Super strength"
         ],
-        "easter_egg": "Telepathy relates to understanding emotions.",
+        "easterEgg": "Telepathy relates to understanding emotions.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -211,7 +211,7 @@
             "Eagle",
             "Butterfly"
         ],
-        "easter_egg": "Butterfly symbolizes transformation and beauty.",
+        "easterEgg": "Butterfly symbolizes transformation and beauty.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -223,7 +223,7 @@
             "Science Fiction",
             "Fantasy"
         ],
-        "easter_egg": "Romance often associated with love.",
+        "easterEgg": "Romance often associated with love.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -235,7 +235,7 @@
             "Visiting a museum",
             "Picnic in the park"
         ],
-        "easter_egg": "Picnic in the park suggests a family-oriented activity.",
+        "easterEgg": "Picnic in the park suggests a family-oriented activity.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -247,7 +247,7 @@
             "Photography",
             "Music"
         ],
-        "easter_egg": "Dance can be linked to ballet.",
+        "easterEgg": "Dance can be linked to ballet.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -259,7 +259,7 @@
             "Juice",
             "Smoothie"
         ],
-        "easter_egg": "Tea time is often associated with elegance.",
+        "easterEgg": "Tea time is often associated with elegance.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -271,7 +271,7 @@
             "Statue of Liberty",
             "Pyramids of Giza"
         ],
-        "easter_egg": "Statue of Liberty is a female figure.",
+        "easterEgg": "Statue of Liberty is a female figure.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -283,7 +283,7 @@
             "Strawberry",
             "Mint chocolate chip"
         ],
-        "easter_egg": "Strawberry again links to pink hues.",
+        "easterEgg": "Strawberry again links to pink hues.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -295,7 +295,7 @@
             "Martin Luther King Jr.",
             "Leonardo da Vinci"
         ],
-        "easter_egg": "Marie Curie is a notable woman in history.",
+        "easterEgg": "Marie Curie is a notable woman in history.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -307,7 +307,7 @@
             "Big Dipper",
             "Southern Cross"
         ],
-        "easter_egg": "Andromeda is a princess in mythology.",
+        "easterEgg": "Andromeda is a princess in mythology.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -319,7 +319,7 @@
             "Ballet",
             "Tap"
         ],
-        "easter_egg": "Ballet is often associated with girls.",
+        "easterEgg": "Ballet is often associated with girls.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -331,7 +331,7 @@
             "Lemon",
             "Carrot"
         ],
-        "easter_egg": "Red velvet has a rich, elegant feel.",
+        "easterEgg": "Red velvet has a rich, elegant feel.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -343,7 +343,7 @@
             "Meditation",
             "Listening to music"
         ],
-        "easter_egg": "Neutral options.",
+        "easterEgg": "Neutral options.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -355,7 +355,7 @@
             "Boots",
             "Slippers"
         ],
-        "easter_egg": "Sandals could hint at open, carefree times.",
+        "easterEgg": "Sandals could hint at open, carefree times.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -367,7 +367,7 @@
             "Independence Day",
             "Halloween"
         ],
-        "easter_egg": "Valentine's Day ties back to love.",
+        "easterEgg": "Valentine's Day ties back to love.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -379,7 +379,7 @@
             "Jupiter",
             "Saturn"
         ],
-        "easter_egg": "Venus is named after the Roman goddess of love.",
+        "easterEgg": "Venus is named after the Roman goddess of love.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -391,7 +391,7 @@
             "Pine",
             "Maple"
         ],
-        "easter_egg": "Willow is a feminine name.",
+        "easterEgg": "Willow is a feminine name.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -403,7 +403,7 @@
             "Drama",
             "Documentary"
         ],
-        "easter_egg": "Neutral options.",
+        "easterEgg": "Neutral options.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -415,7 +415,7 @@
             "Violin",
             "Drums"
         ],
-        "easter_egg": "Violin is elegant and classical.",
+        "easterEgg": "Violin is elegant and classical.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -427,7 +427,7 @@
             "Snowy",
             "Thunderstorm"
         ],
-        "easter_egg": "Rain can symbolize renewal.",
+        "easterEgg": "Rain can symbolize renewal.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -439,7 +439,7 @@
             "Swan",
             "Owl"
         ],
-        "easter_egg": "Swan symbolizes grace and beauty.",
+        "easterEgg": "Swan symbolizes grace and beauty.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -451,7 +451,7 @@
             "Sprinkles",
             "Cherries"
         ],
-        "easter_egg": "Cherries often top sundaes, adding sweetness.",
+        "easterEgg": "Cherries often top sundaes, adding sweetness.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -463,7 +463,7 @@
             "Realism",
             "Surrealism"
         ],
-        "easter_egg": "Neutral options.",
+        "easterEgg": "Neutral options.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -475,7 +475,7 @@
             "Sugar",
             "Peanut butter"
         ],
-        "easter_egg": "Sugar cookies tie back to sugar and spice.",
+        "easterEgg": "Sugar cookies tie back to sugar and spice.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -487,7 +487,7 @@
             "Ruby",
             "Emerald"
         ],
-        "easter_egg": "Ruby is a female name.",
+        "easterEgg": "Ruby is a female name.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -499,7 +499,7 @@
             "Plaid",
             "Floral"
         ],
-        "easter_egg": "Floral patterns are often associated with femininity.",
+        "easterEgg": "Floral patterns are often associated with femininity.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -511,7 +511,7 @@
             "Solitaire",
             "Hearts"
         ],
-        "easter_egg": "Hearts symbolizes love.",
+        "easterEgg": "Hearts symbolizes love.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -523,7 +523,7 @@
             "Reading/Writing",
             "Kinesthetic"
         ],
-        "easter_egg": "Neutral options.",
+        "easterEgg": "Neutral options.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -535,7 +535,7 @@
             "Train",
             "Cruise"
         ],
-        "easter_egg": "Cruise could hint at sea/she.",
+        "easterEgg": "Cruise could hint at sea/she.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -547,7 +547,7 @@
             "Hercules",
             "Scorpius"
         ],
-        "easter_egg": "Cassiopeia is a queen in mythology.",
+        "easterEgg": "Cassiopeia is a queen in mythology.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -559,7 +559,7 @@
             "Chamomile",
             "Earl Grey"
         ],
-        "easter_egg": "Chamomile is calming, associated with nurturing.",
+        "easterEgg": "Chamomile is calming, associated with nurturing.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -571,7 +571,7 @@
             "Hopscotch",
             "Jump rope"
         ],
-        "easter_egg": "Jump rope often played in groups with rhymes.",
+        "easterEgg": "Jump rope often played in groups with rhymes.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -583,7 +583,7 @@
             "Swiss",
             "Gouda"
         ],
-        "easter_egg": "Brie is also a female name.",
+        "easterEgg": "Brie is also a female name.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
@@ -595,7 +595,7 @@
             "Stratus",
             "Nimbus"
         ],
-        "easter_egg": "Neutral options.",
+        "easterEgg": "Neutral options.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     }

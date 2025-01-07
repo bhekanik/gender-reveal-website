@@ -26,7 +26,7 @@ export function WelcomeHero() {
         {settings?.features.showGenderQuiz && (
           <Button className="px-6 py-3 rounded-full" asChild>
             <Link
-              href="/quiz"
+              href={`/preview/${siteId}/quiz`}
               className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white hover:opacity-90 transition"
             >
               Take the Quiz

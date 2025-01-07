@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useQuery } from "convex/react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Share2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -38,13 +38,71 @@ const FloatingElement = ({
   </motion.div>
 );
 
+const TiltCard = ({ children }: { children: React.ReactNode }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(
+    mouseYSpring,
+    [-0.5, 0.5],
+    ["17.5deg", "-17.5deg"]
+  );
+  const rotateY = useTransform(
+    mouseXSpring,
+    [-0.5, 0.5],
+    ["-17.5deg", "17.5deg"]
+  );
+
+  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+
+    const width = rect.width;
+    const height = rect.height;
+
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
+      className="w-full"
+    >
+      <div
+        style={{
+          transform: "translateZ(75px)",
+          transformStyle: "preserve-3d",
+        }}
+      >
+        {children}
+      </div>
+    </motion.div>
+  );
+};
+
 export default function RevealPage() {
   const { siteId } = useParams();
   const announcementDate = useQuery(api.settings.getAnnouncementDate);
-  const settings = useQuery(api.settings.get, {
-    siteId: siteId as Id<"sites">,
-  });
-  console.log("settings:", settings);
   const babies = useQuery(api.settings.getBabies, {
     siteId: siteId as Id<"sites">,
   });
@@ -82,6 +140,8 @@ export default function RevealPage() {
 
     if (now > targetDate) {
       setTimeout(() => setIsRevealed(true), 1000);
+    } else {
+      setIsRevealed(false);
     }
   }, [announcementDate]);
 
@@ -170,7 +230,7 @@ export default function RevealPage() {
             countdown reaches zero!
           </p>
           <Button
-            onClick={() => router.push("/")}
+            onClick={() => router.push(`/preview/${siteId}`)}
             className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white hover:opacity-90 transition"
           >
             Back to Home
@@ -356,47 +416,51 @@ export default function RevealPage() {
           height={windowSize.height}
           colors={getConfettiColors(babies)}
           recycle={true}
-          numberOfPieces={200 * babies.length} // More confetti for more babies!
+          numberOfPieces={200 * babies.length}
         />
       )}
 
-      <div className="container mx-auto px-4 relative z-10">
-        <motion.div
-          className="max-w-2xl mx-auto text-center space-y-12"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="space-y-8"
-          >
-            <h1
-              className={`text-5xl md:text-7xl font-bold bg-gradient-to-r ${getGradientColors(babies || [])} bg-clip-text text-transparent`}
+      <div className="grid place-items-center h-screen container mx-auto px-4 relative z-10">
+        <div style={{ perspective: "1000px" }}>
+          <TiltCard>
+            <motion.div
+              className="max-w-2xl mx-auto text-center space-y-12 p-8 rounded-3xl backdrop-blur-md bg-white/30 shadow-xl border border-white/40 relative z-20"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
             >
-              {getBabyAnnouncement(babies || [])}
-            </h1>
-            <p className="text-xl md:text-2xl text-neutral-600">
-              {getMessage(babies || [])}
-            </p>
-          </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="space-y-8"
+              >
+                <h1
+                  className={`text-5xl md:text-7xl font-bold bg-gradient-to-r ${getGradientColors(babies || [])} bg-clip-text text-transparent`}
+                >
+                  {getBabyAnnouncement(babies || [])}
+                </h1>
+                <p className="text-xl md:text-2xl text-neutral-700">
+                  {getMessage(babies || [])}
+                </p>
+              </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-          >
-            <Button
-              onClick={handleShare}
-              className={`px-8 py-4 rounded-full bg-gradient-to-r ${getGradientColors(babies || [])} text-white hover:opacity-90 transition-opacity`}
-            >
-              <Share2 className="w-5 h-5 mr-2" />
-              Share the News
-            </Button>
-          </motion.div>
-        </motion.div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1 }}
+              >
+                <Button
+                  onClick={handleShare}
+                  className={`px-8 py-4 rounded-full bg-gradient-to-r ${getGradientColors(babies || [])} text-white hover:opacity-90 transition-opacity shadow-lg`}
+                >
+                  <Share2 className="w-5 h-5 mr-2" />
+                  Share the News
+                </Button>
+              </motion.div>
+            </motion.div>
+          </TiltCard>
+        </div>
       </div>
     </AnimatedBackground>
   );
