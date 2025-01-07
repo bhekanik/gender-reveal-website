@@ -58,7 +58,7 @@ export default clerkMiddleware(async (auth, req) => {
 
     // Rewrite the URL to the dashboard path
     const url = req.nextUrl.clone();
-    url.pathname = `/dashboard/sites/${site._id}`;
+    url.pathname = `/sites/${site._id}`;
 
     return NextResponse.rewrite(url);
   } catch (error) {

@@ -1,8 +1,45 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { api } from "@/convex/_generated/api";
+import { useAuth } from "@clerk/nextjs";
+import { faker } from "@faker-js/faker";
+import Case from "case";
+import { useMutation, useQuery } from "convex/react";
 import { Sparkles } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export function EmptyState() {
+  const { userId } = useAuth();
+  const router = useRouter();
+  const createSite = useMutation(api.sites.createSite);
+  const user = useQuery(api.users.getUserByClerkId, {
+    clerkUserId: userId || "",
+  });
+
+  const handleCreateSite = async () => {
+    if (!user) return;
+
+    try {
+      const defaultSiteName = Case.sentence(
+        `${faker.word.adjective()} ${faker.word.noun()}`
+      );
+      const siteId = await createSite({
+        userId: user.id,
+        siteName: defaultSiteName,
+        subdomain: defaultSiteName.toLowerCase().replace(/\s+/g, "-"),
+      });
+
+      toast.success("Site created successfully!");
+      router.push(`/dashboard/sites/${siteId}/settings`);
+    } catch (error) {
+      toast.error("Failed to create site. Please try again.");
+      console.error("Error creating site:", error);
+    }
+  };
+
   return (
     <div className="flex min-h-[400px] flex-col items-center justify-center rounded-lg border border-dashed bg-muted/40 p-8 text-center animate-in fade-in-50">
       <div className="mx-auto flex max-w-[420px] flex-col items-center justify-center text-center">
@@ -18,6 +55,7 @@ export function EmptyState() {
           size="lg"
           className="mt-6 bg-gradient-to-r from-brand-pink to-brand-blue hover:opacity-90"
           asChild
+          onClick={handleCreateSite}
         >
           <Link href="/dashboard/sites/create">
             <Sparkles className="mr-2 h-4 w-4" />

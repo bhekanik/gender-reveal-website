@@ -27,7 +27,7 @@ export default defineSchema({
   sites: defineTable({
     userId: v.id("users"),
     siteName: v.string(), // Used as the site identifier in URLs
-    subdomain: v.string(), // New field for subdomain
+    subdomain: v.optional(v.string()), // New field for subdomain
     paid: v.boolean(),
     published: v.boolean(),
     createdAt: v.number(),
