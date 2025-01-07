@@ -117,7 +117,7 @@ export default function SettingsPage() {
                   <DateTimeForm settings={settings} />
                 </TabsContent>
                 <TabsContent value="sharing">
-                  <SharingForm site={site} settings={settings} />
+                  <SharingForm site={site} />
                 </TabsContent>
                 <TabsContent value="danger">
                   <Card className="border-2 border-destructive bg-destructive/5">

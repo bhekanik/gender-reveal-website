@@ -50,7 +50,6 @@ export function RevealSettingsForm({ settings }: RevealSettingsFormProps) {
     try {
       await updateSettings({
         siteId: settings.siteId,
-        accountName: settings.accountName,
         announcementDate: settings.announcementDate,
         welcomeHeroText: values.welcomeHeroText,
         revealText: values.revealText,

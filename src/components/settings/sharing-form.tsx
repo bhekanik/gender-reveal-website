@@ -8,11 +8,10 @@ import { toast } from "sonner";
 
 interface SharingFormProps {
   site: Doc<"sites">;
-  settings: Doc<"settings">;
 }
 
-export function SharingForm({ site, settings }: SharingFormProps) {
-  const siteUrl = `https://pinkandblue.live/${settings.accountName}`;
+export function SharingForm({ site }: SharingFormProps) {
+  const siteUrl = `https://${site.subdomain}.pinkandblue.live`;
 
   const copyToClipboard = async () => {
     try {

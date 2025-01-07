@@ -20,7 +20,6 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
 const formSchema = z.object({
-  accountName: z.string().min(3).max(50),
   siteName: z.string().min(3).max(50),
   subdomain: z
     .string()
@@ -44,7 +43,6 @@ export function SettingsForm({ settings, site }: SettingsFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      accountName: settings.accountName,
       siteName: site.siteName,
       subdomain: site.subdomain,
     },
@@ -54,7 +52,6 @@ export function SettingsForm({ settings, site }: SettingsFormProps) {
     try {
       await updateSettings({
         siteId: settings.siteId,
-        accountName: values.accountName,
         announcementDate: settings.announcementDate,
         welcomeHeroText: settings.welcomeHeroText,
         revealText: settings.revealText,
@@ -109,24 +106,6 @@ export function SettingsForm({ settings, site }: SettingsFormProps) {
               <FormDescription>
                 This is your site&apos;s custom subdomain. It can only contain
                 lowercase letters, numbers, and hyphens.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="accountName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Account Name</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormDescription>
-                This will be used in your site&apos;s URL: pinkandblue.live/
-                {field.value}
               </FormDescription>
               <FormMessage />
             </FormItem>

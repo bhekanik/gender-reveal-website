@@ -1,5 +1,4 @@
 import { faker } from "@faker-js/faker";
-import Case from "case";
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 
@@ -81,7 +80,6 @@ export const createSite = mutation({
     // Create default settings for the site
     await ctx.db.insert("settings", {
       siteId,
-      accountName: Case.kebab(args.siteName),
       announcementDate: now + 7 * 24 * 60 * 60 * 1000, // 7 days from now
       welcomeHeroText: "Welcome to Our Baby Gender Reveal!",
       revealText: "The big moment is here...",

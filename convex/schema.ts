@@ -39,7 +39,6 @@ export default defineSchema({
 
   settings: defineTable({
     siteId: v.id("sites"),
-    accountName: v.string(),
     announcementDate: v.number(),
     welcomeHeroText: v.string(),
     revealText: v.string(),

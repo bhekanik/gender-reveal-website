@@ -10,7 +10,6 @@ export const config = {
   discordUserId: "549143313257725969",
   defaults: {
     settings: {
-      accountName: "my-baby-reveal",
       announcementDate: Date.now() + 30 * 24 * 60 * 60 * 1000, // 30 days from now
       welcomeHeroText: "Welcome to Our Baby Reveal!",
       revealText: "We can't wait to meet our little one!",

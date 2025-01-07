@@ -27,7 +27,6 @@ export const getBabies = query({
 export const update = mutation({
   args: {
     siteId: v.id("sites"),
-    accountName: v.string(),
     announcementDate: v.number(),
     welcomeHeroText: v.string(),
     revealText: v.string(),

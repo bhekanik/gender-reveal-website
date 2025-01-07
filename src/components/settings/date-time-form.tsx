@@ -52,7 +52,6 @@ export function DateTimeForm({ settings }: DateTimeFormProps) {
 
       await updateSettings({
         siteId: settings.siteId,
-        accountName: settings.accountName,
         announcementDate: dateTime.getTime(),
         welcomeHeroText: settings.welcomeHeroText,
         revealText: settings.revealText,
