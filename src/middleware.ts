@@ -28,6 +28,9 @@ export default clerkMiddleware(async (auth, req) => {
   const hostname = req.headers.get("host");
   const baseDomain = siteConfig.domain;
 
+  console.log("hostname:", hostname);
+  console.log("baseDomain:", baseDomain);
+
   // Skip if this is the main domain
   if (hostname === baseDomain) {
     return NextResponse.next();
@@ -36,14 +39,30 @@ export default clerkMiddleware(async (auth, req) => {
   // Get subdomain by removing the base domain
   const subdomain = hostname?.replace(`.${baseDomain}`, "");
 
+  console.log("subdomain:", subdomain);
+
   if (!subdomain) {
     return NextResponse.next();
   }
 
   try {
-    // Rewrite the URL to the dashboard path
+    // Call our API route to lookup the site
+    const response = await fetch(`${req.url}/api/sites/lookup/${subdomain}`);
+
+    if (!response.ok) {
+      return NextResponse.redirect(new URL("/404", req.url));
+    }
+
+    const site = await response.json();
+
+    // Only allow access to published sites
+    if (!site.published) {
+      return NextResponse.redirect(new URL("/404", req.url));
+    }
+
+    // Rewrite the URL to the sites path with the site ID
     const url = req.nextUrl.clone();
-    url.pathname = `/sites/${subdomain}`;
+    url.pathname = `/sites/${site._id}`;
 
     return NextResponse.rewrite(url);
   } catch (error) {
@@ -54,9 +73,7 @@ export default clerkMiddleware(async (auth, req) => {
 
 export const config = {
   matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-    // Always run for API routes
     "/(api|trpc)(.*)",
   ],
 };

@@ -10,11 +10,9 @@ import { redirect, useParams } from "next/navigation";
 
 export default function HomePage() {
   const { subdomain } = useParams();
-  console.log("subdomain:", subdomain);
   const settings = useQuery(api.settings.getBySubdomain, {
     subdomain: subdomain as string,
   });
-  console.log("settings:", settings);
 
   if (!settings) {
     return null;
