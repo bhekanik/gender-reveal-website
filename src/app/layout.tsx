@@ -1,4 +1,3 @@
-import { Header } from "@/components/marketing/header";
 import { ConvexClientProvider } from "@/components/providers/convex-client-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata, Viewport } from "next";
@@ -107,7 +106,6 @@ export default function RootLayout({
         >
           <ConvexClientProvider>
             <NextTopLoader />
-            <Header />
             {children}
             <Toaster />
           </ConvexClientProvider>
