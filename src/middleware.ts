@@ -48,7 +48,9 @@ export default clerkMiddleware(async (auth, req) => {
 
   try {
     // Call our API route to lookup the site
-    const response = await fetch(`${req.url}/api/sites/lookup/${subdomain}`);
+    const response = await fetch(
+      `${new URL(req.url).origin}/api/sites/lookup/${subdomain}`
+    );
 
     if (!response.ok) {
       return NextResponse.next();

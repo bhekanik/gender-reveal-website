@@ -11,6 +11,15 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 
+import { cn } from "@/lib/utils";
+import { Love_Ya_Like_A_Sister } from "next/font/google";
+
+const font = Love_Ya_Like_A_Sister({
+  subsets: ["latin"],
+  variable: "--font-love-ya-like-a-sister",
+  weight: ["400"],
+});
+
 const FloatingElement = ({
   children,
   delay = 0,
@@ -420,11 +429,34 @@ export default function RevealPage() {
         />
       )}
 
-      <div className="grid place-items-center h-screen container mx-auto px-4 relative z-10">
-        <div style={{ perspective: "1000px" }}>
+      <div
+        className={cn(
+          "grid place-items-center h-screen container mx-auto px-4 relative z-10",
+          font.variable
+        )}
+      >
+        <div
+          className="font-love-ya-like-a-sister"
+          style={{ perspective: "1000px" }}
+        >
           <TiltCard>
             <motion.div
-              className="max-w-2xl mx-auto text-center space-y-12 p-8 rounded-3xl backdrop-blur-md bg-white/30 shadow-xl border border-white/40 relative z-20"
+              className={cn(
+                "max-w-2xl mx-auto text-center space-y-12 p-8 rounded-3xl backdrop-blur-md shadow-xl border border-white/40 relative z-20",
+                // Add gender-based background tint
+                babies?.length === 1
+                  ? babies[0].gender === "girl"
+                    ? "bg-pink-100/30"
+                    : "bg-blue-100/30"
+                  : babies?.some((b) => b.gender === "girl") &&
+                      babies?.some((b) => b.gender === "boy")
+                    ? "bg-purple-100/30"
+                    : babies?.some((b) => b.gender === "girl")
+                      ? "bg-pink-100/30"
+                      : babies?.some((b) => b.gender === "boy")
+                        ? "bg-blue-100/30"
+                        : "bg-white/30"
+              )}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}

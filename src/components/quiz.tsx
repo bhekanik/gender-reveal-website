@@ -12,7 +12,7 @@ import { Button } from "./ui/button";
 
 type QuizState = "not-started" | "in-progress" | "completed" | "all-done";
 
-export function Quiz() {
+export function Quiz({ preview = false }: { preview?: boolean }) {
   const visitorId = useVisitorId();
   const params = useParams();
   const siteId = params.siteId as Id<"sites">;
@@ -87,14 +87,20 @@ export function Quiz() {
             </div>
             <div className="flex gap-4 justify-center">
               <Button
-                onClick={() => router.push(`/preview/${siteId}`)}
+                onClick={() =>
+                  router.push(`/${preview ? "preview" : "sites"}/${siteId}`)
+                }
                 variant="outline"
                 className="px-6 py-3 rounded-full"
               >
                 Back to Home
               </Button>
               <Button
-                onClick={() => router.push(`/preview/${siteId}#poll`)}
+                onClick={() =>
+                  router.push(
+                    `/${preview ? "preview" : "sites"}/${siteId}#poll`
+                  )
+                }
                 className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white hover:opacity-90"
               >
                 Make Your Gender Prediction
@@ -118,7 +124,9 @@ export function Quiz() {
 
             <div className="flex gap-4 justify-center">
               <Button
-                onClick={() => router.push(`/preview/${siteId}`)}
+                onClick={() =>
+                  router.push(`/${preview ? "preview" : "sites"}/${siteId}`)
+                }
                 variant="outline"
                 className="px-6 py-3 rounded-full"
               >
@@ -165,7 +173,9 @@ export function Quiz() {
             </p>
             <div className="flex gap-4 justify-center">
               <Button
-                onClick={() => router.push(`/preview/${siteId}`)}
+                onClick={() =>
+                  router.push(`/${preview ? "preview" : "sites"}/${siteId}`)
+                }
                 variant="outline"
                 className="px-6 py-3 rounded-full"
               >

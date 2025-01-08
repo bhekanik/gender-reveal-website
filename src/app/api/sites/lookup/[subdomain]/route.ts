@@ -18,7 +18,11 @@ export async function GET(
 
     return NextResponse.json(site);
   } catch (error) {
-    console.error("Error looking up site:", error);
+    console.error("Error looking up site:", {
+      error,
+      subdomain,
+      message: error instanceof Error ? error.message : "Unknown error",
+    });
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

@@ -6,10 +6,18 @@ import { GenderPoll } from "@/components/gender-poll";
 import { WelcomeHero } from "@/components/welcome-hero";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
+import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
+import { Love_Ya_Like_A_Sister } from "next/font/google";
 import Link from "next/link";
 import { redirect, useParams } from "next/navigation";
+
+const font = Love_Ya_Like_A_Sister({
+  subsets: ["latin"],
+  variable: "--font-love-ya-like-a-sister",
+  weight: ["400"],
+});
 
 export default function PreviewPage() {
   const user = useUser();
@@ -93,13 +101,15 @@ export default function PreviewPage() {
           </div>
         </div>
       </div>
-      <AnimatedBackground>
-        <div className="min-h-screen flex items-center pt-16">
-          <div className="container mx-auto px-4 py-12">
+      <AnimatedBackground variant="default" density="high">
+        <div
+          className={cn("min-h-screen flex items-center pt-16", font.variable)}
+        >
+          <div className="container mx-auto px-4 py-12 font-love-ya-like-a-sister">
             <div className="max-w-4xl mx-auto space-y-12">
-              <WelcomeHero />
+              <WelcomeHero preview />
               {settings.features.showGenderPoll && <GenderPoll />}
-              {settings.features.showCountdown && <CountdownTimer />}
+              {settings.features.showCountdown && <CountdownTimer preview />}
             </div>
           </div>
         </div>
