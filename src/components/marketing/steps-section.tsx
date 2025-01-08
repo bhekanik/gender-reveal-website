@@ -84,7 +84,13 @@ const steps = [
   },
 ];
 
-const FloatingShape = ({ delay = 0 }) => (
+const FloatingShape = ({
+  delay = 0,
+  style,
+}: {
+  delay?: number;
+  style?: React.CSSProperties;
+}) => (
   <motion.div
     className="absolute w-3 h-3 rounded-full bg-gradient-to-r from-brand-pink to-brand-blue opacity-20"
     animate={{
@@ -97,6 +103,7 @@ const FloatingShape = ({ delay = 0 }) => (
       repeat: Infinity,
       delay,
     }}
+    style={style}
   />
 );
 

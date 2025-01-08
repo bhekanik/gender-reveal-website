@@ -41,6 +41,19 @@ export default clerkMiddleware(async (auth, req) => {
     return NextResponse.next();
   }
 
+  function rewriteSubdomains(req: Request, baseDomain: string, siteId: string) {
+    const { pathname, search } = new URL(req.url);
+    const rewriteUrl = new URL(
+      `https://${baseDomain}/sites/${siteId}${pathname}`
+    );
+    rewriteUrl.search = search;
+
+    const res = NextResponse.rewrite(rewriteUrl);
+    res.headers.set("x-middleware-rewrite", rewriteUrl.toString());
+    res.headers.set("x-original-host", req.headers.get("host") ?? "");
+    return res;
+  }
+
   try {
     // Call our API route to lookup the site
     const response = await fetch(
@@ -58,21 +71,7 @@ export default clerkMiddleware(async (auth, req) => {
       return NextResponse.next();
     }
 
-    // Create a rewrite URL that preserves the hostname
-    const rewriteUrl = new URL(`https://${baseDomain}`);
-    // Keep the original pathname if it's not just "/"
-    const pathname =
-      rewriteUrl.pathname === "/"
-        ? `/sites/${site._id}`
-        : `/sites/${site._id}${rewriteUrl.pathname}`;
-    rewriteUrl.pathname = pathname;
-
-    const res = NextResponse.rewrite(rewriteUrl);
-    // Ensure the original host header is preserved
-    res.headers.set("x-middleware-rewrite", rewriteUrl.toString());
-    res.headers.set("x-original-host", hostname ?? "");
-
-    return res;
+    return rewriteSubdomains(req, baseDomain, site._id);
   } catch (error) {
     console.error("Error in middleware:", error);
     return NextResponse.next();
