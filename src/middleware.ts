@@ -15,7 +15,13 @@ const isPublicApiRoute = createRouteMatcher([
   "/api/public/(.*)",
 ]);
 
+function isRewriteExcluded(req: Request): boolean {
+  const { pathname } = new URL(req.url);
+  return pathname.startsWith("/monitoring") || pathname.startsWith("/ingest");
+}
+
 export default clerkMiddleware(async (auth, req) => {
+  // Protected route/auth checks
   if (isProtectedRoute(req)) {
     await auth.protect();
   }
@@ -23,6 +29,11 @@ export default clerkMiddleware(async (auth, req) => {
     if (!isPublicApiRoute(req)) {
       await auth.protect();
     }
+  }
+
+  // Skip rewriting for these routes
+  if (isRewriteExcluded(req)) {
+    return NextResponse.next();
   }
 
   const hostname = req.headers.get("host");
