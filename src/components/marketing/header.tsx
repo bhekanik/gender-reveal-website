@@ -9,7 +9,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MobileMenu } from "./mobile-menu";
-import { ThemeToggle } from "./theme-toggle";
 
 export function Header({ className }: { className?: string }) {
   const pathname = usePathname();
@@ -48,7 +47,7 @@ export function Header({ className }: { className?: string }) {
               className={cn(
                 "px-3 py-2 text-sm rounded-md transition-colors",
                 pathname === "/"
-                  ? "text-primary font-medium"
+                  ? "text-primary font-medium hidden"
                   : "text-muted-foreground hover:text-primary hover:bg-muted"
               )}
               href="/"
@@ -61,7 +60,7 @@ export function Header({ className }: { className?: string }) {
                 className={cn(
                   "px-3 py-2 text-sm rounded-md transition-colors",
                   pathname === "/dashboard"
-                    ? "text-primary font-medium"
+                    ? "text-primary font-medium hidden"
                     : "text-muted-foreground hover:text-primary hover:bg-muted"
                 )}
                 href="/dashboard"
@@ -102,7 +101,6 @@ export function Header({ className }: { className?: string }) {
             </SignedIn>
 
             <div className="flex items-center space-x-2">
-              <ThemeToggle />
               <SignedIn>
                 <UserButton
                   afterSignOutUrl="/"

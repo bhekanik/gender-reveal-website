@@ -117,3 +117,22 @@
       "calt" 1;
   }
 }
+
+.bg-dot-pattern {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgb(0 0 0 / 0.1) 1px,
+    transparent 0
+  );
+  background-size: 24px 24px;
+}
+
+.bg-grid-pattern {
+  background-image: linear-gradient(
+      to right,
+      rgb(0 0 0 / 0.1) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgb(0 0 0 / 0.1) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
