@@ -160,12 +160,12 @@ export function CountdownTimer({ preview = false }: { preview?: boolean }) {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="text-3xl md:text-4xl font-bold text-center mb-8 bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent"
+        className="text-xl md:text-3xl font-bold text-center mb-4 md:mb-8 bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent"
       >
         The Big Reveal In:
       </motion.h2>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto">
+      <div className="grid grid-cols-4 gap-2 max-w-4xl mx-auto">
         {timeUnits.map(({ value, label }, index) => (
           <motion.div
             key={label}
@@ -175,14 +175,14 @@ export function CountdownTimer({ preview = false }: { preview?: boolean }) {
             className="text-center"
           >
             <div className="relative">
-              <div className="relative bg-white/30 backdrop-blur-md rounded-xl p-6 md:p-8 overflow-hidden border border-white/30">
+              <div className="relative bg-white/30 backdrop-blur-md rounded-xl p-4 md:p-8 overflow-hidden border border-white/30">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={value}
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: -20, opacity: 0 }}
-                    className="block text-4xl md:text-6xl font-mono font-bold text-neutral-800"
+                    className="block text-2xl md:text-6xl font-mono font-bold text-neutral-800"
                   >
                     {value.toString().padStart(2, "0")}
                   </motion.span>
@@ -199,11 +199,6 @@ export function CountdownTimer({ preview = false }: { preview?: boolean }) {
             <div className="mt-3 text-base md:text-lg text-neutral-700 capitalize font-medium">
               {label}
             </div>
-            {label === "minutes" && (
-              <div className="block md:hidden text-neutral-500 my-2 font-medium">
-                and
-              </div>
-            )}
           </motion.div>
         ))}
       </div>
@@ -212,7 +207,7 @@ export function CountdownTimer({ preview = false }: { preview?: boolean }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8 }}
-        className="text-center text-sm text-neutral-600 mt-6"
+        className="text-center text-xs md:text-sm text-neutral-600 mt-2 md:mt-6"
       >
         Times shown in your local timezone
       </motion.p>

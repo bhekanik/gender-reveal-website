@@ -38,13 +38,16 @@ export default function PreviewPage() {
   return (
     <AnimatedBackground variant="default" density="high">
       <div
-        className={cn("min-h-screen flex items-center pt-16", font.variable)}
+        className={cn(
+          "min-h-screen grid place-items-center py-4",
+          font.variable
+        )}
       >
-        <div className="container mx-auto px-4 py-12 font-love-ya-like-a-sister">
-          <div className="max-w-4xl mx-auto space-y-12">
+        <div className="container mx-auto px-4 py-4 font-love-ya-like-a-sister">
+          <div className="max-w-4xl mx-auto space-y-4">
             <WelcomeHero />
-            {settings.features.showGenderPoll && <GenderPoll />}
             {settings.features.showCountdown && <CountdownTimer />}
+            {settings.features.showGenderPoll && <GenderPoll />}
           </div>
         </div>
       </div>

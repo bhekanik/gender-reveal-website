@@ -18,7 +18,7 @@ export function WelcomeHero({ preview = false }: { preview?: boolean }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="relative text-center space-y-8 py-16 px-4"
+      className="relative text-center space-y-2 md:space-y-8 py-2 md:py-8 px-4"
     >
       {/* Decorative elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">

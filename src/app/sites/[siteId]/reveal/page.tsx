@@ -239,7 +239,7 @@ export default function RevealPage() {
             countdown reaches zero!
           </p>
           <Button
-            onClick={() => router.push(`/preview/${siteId}`)}
+            onClick={() => router.push(`/sites/${siteId}`)}
             className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white hover:opacity-90 transition"
           >
             Back to Home
