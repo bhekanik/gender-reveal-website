@@ -58,7 +58,7 @@ export function WelcomeHero({ preview = false }: { preview?: boolean }) {
             className="px-8 py-6 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 hover:scale-105 text-white border-none"
             asChild
           >
-            <Link href={`/${preview ? "preview" : "sites"}/${siteId}/quiz`}>
+            <Link href={preview ? `/preview/${siteId}/quiz` : `/quiz`}>
               Take the Quiz
             </Link>
           </Button>

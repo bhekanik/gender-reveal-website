@@ -2,6 +2,7 @@
 
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
+import { config } from "@/lib/config";
 import { useVisitorId } from "@/lib/hooks/use-user-id";
 import { useMutation, useQuery } from "convex/react";
 import { motion } from "framer-motion";
@@ -16,6 +17,7 @@ export function Quiz({ preview = false }: { preview?: boolean }) {
   const visitorId = useVisitorId();
   const params = useParams();
   const siteId = params.siteId as Id<"sites">;
+  const site = useQuery(api.sites.getSite, { siteId });
   const router = useRouter();
   const [quizState, setQuizState] = useState<QuizState>("not-started");
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -88,7 +90,13 @@ export function Quiz({ preview = false }: { preview?: boolean }) {
             <div className="flex gap-4 justify-center">
               <Button
                 onClick={() =>
-                  router.push(`/${preview ? "preview" : "sites"}/${siteId}`)
+                  router.push(
+                    preview
+                      ? `/preview/${site?.subdomain}`
+                      : config.isDev
+                        ? `/sites/${siteId}`
+                        : `https://${site?.subdomain}.${config.domain}`
+                  )
                 }
                 variant="outline"
                 className="px-6 py-3 rounded-full"
@@ -98,7 +106,11 @@ export function Quiz({ preview = false }: { preview?: boolean }) {
               <Button
                 onClick={() =>
                   router.push(
-                    `/${preview ? "preview" : "sites"}/${siteId}#poll`
+                    preview
+                      ? `/preview/${site?.subdomain}`
+                      : config.isDev
+                        ? `/sites/${siteId}`
+                        : `https://${site?.subdomain}.${config.domain}`
                   )
                 }
                 className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white hover:opacity-90"
@@ -125,7 +137,11 @@ export function Quiz({ preview = false }: { preview?: boolean }) {
             <div className="flex gap-4 justify-center">
               <Button
                 onClick={() =>
-                  router.push(`/${preview ? "preview" : "sites"}/${siteId}`)
+                  preview
+                    ? `/preview/${site?.subdomain}`
+                    : config.isDev
+                      ? `/sites/${siteId}`
+                      : `https://${site?.subdomain}.${config.domain}`
                 }
                 variant="outline"
                 className="px-6 py-3 rounded-full"
@@ -174,7 +190,11 @@ export function Quiz({ preview = false }: { preview?: boolean }) {
             <div className="flex gap-4 justify-center">
               <Button
                 onClick={() =>
-                  router.push(`/${preview ? "preview" : "sites"}/${siteId}`)
+                  preview
+                    ? `/preview/${site?.subdomain}`
+                    : config.isDev
+                      ? `/sites/${siteId}`
+                      : `https://${site?.subdomain}.${config.domain}`
                 }
                 variant="outline"
                 className="px-6 py-3 rounded-full"

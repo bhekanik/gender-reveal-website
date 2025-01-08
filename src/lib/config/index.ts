@@ -6,6 +6,7 @@ export const config = {
   projectDescription: "Create your personalized baby gender reveal site",
   baseUrl: `http://${domain}`,
   domain,
+  isDev,
   supportEmail: `${domain.split(".")[0]}@bhekani.com`,
   discordUserId: "549143313257725969",
   defaults: {

@@ -118,7 +118,7 @@ export function CountdownTimer({ preview = false }: { preview?: boolean }) {
         </h2>
         <div className="flex justify-center">
           <Link
-            href={`/${preview ? "preview" : "sites"}/${siteId}/reveal`}
+            href={preview ? `/preview/${siteId}/reveal` : `/reveal`}
             className="group inline-flex items-center px-8 py-4 rounded-full bg-gradient-to-r from-pink-500/90 to-blue-500/90 backdrop-blur-sm text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-white/20"
           >
             <span>View Gender Reveal</span>

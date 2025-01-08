@@ -11,6 +11,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 
+import { config } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { Love_Ya_Like_A_Sister } from "next/font/google";
 
@@ -111,6 +112,7 @@ const TiltCard = ({ children }: { children: React.ReactNode }) => {
 
 export default function RevealPage() {
   const { siteId } = useParams();
+  const site = useQuery(api.sites.getSite, { siteId: siteId as Id<"sites"> });
   const announcementDate = useQuery(api.settings.getAnnouncementDate);
   const babies = useQuery(api.settings.getBabies, {
     siteId: siteId as Id<"sites">,
@@ -239,7 +241,13 @@ export default function RevealPage() {
             countdown reaches zero!
           </p>
           <Button
-            onClick={() => router.push(`/sites/${siteId}`)}
+            onClick={() =>
+              router.push(
+                config.isDev
+                  ? `/sites/${siteId}`
+                  : `https://${site?.subdomain}.${config.domain}`
+              )
+            }
             className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white hover:opacity-90 transition"
           >
             Back to Home
