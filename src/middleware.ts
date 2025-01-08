@@ -28,9 +28,6 @@ export default clerkMiddleware(async (auth, req) => {
   const hostname = req.headers.get("host");
   const baseDomain = siteConfig.domain;
 
-  console.log("hostname:", hostname);
-  console.log("baseDomain:", baseDomain);
-
   // Skip if this is the main domain or www subdomain
   if (hostname === baseDomain || hostname === `www.${baseDomain}`) {
     return NextResponse.next();
@@ -38,8 +35,6 @@ export default clerkMiddleware(async (auth, req) => {
 
   // Get subdomain by removing the base domain
   const subdomain = hostname?.replace(`.${baseDomain}`, "");
-
-  console.log("subdomain:", subdomain);
 
   // Skip if no subdomain or if it's www
   if (!subdomain || subdomain === "www") {
@@ -57,23 +52,30 @@ export default clerkMiddleware(async (auth, req) => {
     }
 
     const site = await response.json();
-    console.log("site:", site);
 
     // Only allow access to published sites
     if (!site.published) {
       return NextResponse.next();
     }
 
-    // Rewrite the URL to the sites path with the site ID
-    const url = req.nextUrl.clone();
-    url.pathname = `/sites/${site._id}`;
+    // Create a rewrite URL that preserves the hostname
+    const rewriteUrl = new URL(`https://${baseDomain}`);
+    // Keep the original pathname if it's not just "/"
+    const pathname =
+      rewriteUrl.pathname === "/"
+        ? `/sites/${site._id}`
+        : `/sites/${site._id}${rewriteUrl.pathname}`;
+    rewriteUrl.pathname = pathname;
 
-    console.log("url:", url);
+    const res = NextResponse.rewrite(rewriteUrl);
+    // Ensure the original host header is preserved
+    res.headers.set("x-middleware-rewrite", rewriteUrl.toString());
+    res.headers.set("x-original-host", hostname ?? "");
 
-    return NextResponse.rewrite(url);
+    return res;
   } catch (error) {
     console.error("Error in middleware:", error);
-    return NextResponse.redirect(new URL("/500", req.url));
+    return NextResponse.next();
   }
 });
 

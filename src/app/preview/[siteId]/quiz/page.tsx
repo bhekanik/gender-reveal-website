@@ -16,7 +16,7 @@ export default function QuizPage() {
                 fun questions and see if you can spot any hidden clues...
               </p>
             </div>
-            <Quiz />
+            <Quiz preview />
           </div>
         </div>
       </div>
