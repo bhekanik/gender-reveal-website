@@ -6,6 +6,7 @@ import { config } from "@/lib/config";
 import { useVisitorId } from "@/lib/hooks/use-user-id";
 import { useMutation, useQuery } from "convex/react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { QuestionCard } from "./quiz/question-card";
@@ -89,19 +90,21 @@ export function Quiz({ preview = false }: { preview?: boolean }) {
             </div>
             <div className="flex gap-4 justify-center">
               <Button
-                onClick={() =>
-                  router.push(
+                variant="outline"
+                className="px-6 py-3 rounded-full"
+                asChild
+              >
+                <Link
+                  href={
                     preview
                       ? `/preview/${site?.subdomain}`
                       : config.isDev
                         ? `/sites/${siteId}`
                         : `https://${site?.subdomain}.${config.domain}`
-                  )
-                }
-                variant="outline"
-                className="px-6 py-3 rounded-full"
-              >
-                Back to Home
+                  }
+                >
+                  Back to Home
+                </Link>
               </Button>
               <Button
                 onClick={() =>
@@ -136,17 +139,21 @@ export function Quiz({ preview = false }: { preview?: boolean }) {
 
             <div className="flex gap-4 justify-center">
               <Button
-                onClick={() =>
-                  preview
-                    ? `/preview/${site?.subdomain}`
-                    : config.isDev
-                      ? `/sites/${siteId}`
-                      : `https://${site?.subdomain}.${config.domain}`
-                }
                 variant="outline"
                 className="px-6 py-3 rounded-full"
+                asChild
               >
-                Back to Home
+                <Link
+                  href={
+                    preview
+                      ? `/preview/${site?.subdomain}`
+                      : config.isDev
+                        ? `/sites/${siteId}`
+                        : `https://${site?.subdomain}.${config.domain}`
+                  }
+                >
+                  Back to Home
+                </Link>
               </Button>
               <Button
                 onClick={handleStartQuiz}
@@ -189,17 +196,21 @@ export function Quiz({ preview = false }: { preview?: boolean }) {
             </p>
             <div className="flex gap-4 justify-center">
               <Button
-                onClick={() =>
-                  preview
-                    ? `/preview/${site?.subdomain}`
-                    : config.isDev
-                      ? `/sites/${siteId}`
-                      : `https://${site?.subdomain}.${config.domain}`
-                }
                 variant="outline"
                 className="px-6 py-3 rounded-full"
+                asChild
               >
-                Back to Home
+                <Link
+                  href={
+                    preview
+                      ? `/preview/${site?.subdomain}`
+                      : config.isDev
+                        ? `/sites/${siteId}`
+                        : `https://${site?.subdomain}.${config.domain}`
+                  }
+                >
+                  Back to Home
+                </Link>
               </Button>
               <Button
                 onClick={handleStartQuiz}
