@@ -6,6 +6,7 @@ import { GenderPoll } from "@/components/gender-poll";
 import { WelcomeHero } from "@/components/welcome-hero";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
+import { config } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { useQuery } from "convex/react";
 import { Love_Ya_Like_A_Sister } from "next/font/google";
@@ -32,7 +33,7 @@ export default function PreviewPage() {
   const expired = now > targetDate;
 
   if (expired) {
-    redirect(`/reveal`);
+    redirect(config.isDev ? `/sites/${siteId}/reveal` : `/reveal`);
   }
 
   return (
