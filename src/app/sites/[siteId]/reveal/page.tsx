@@ -127,6 +127,7 @@ export default function RevealPage() {
   const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -234,6 +235,16 @@ export default function RevealPage() {
     }
   };
 
+  // Add timeupdate handler
+  const handleTimeUpdate = () => {
+    if (videoRef.current && videoRef.current.currentTime >= 120) {
+      // 120 seconds = 2 minutes
+      setShowConfetti(true);
+      // Remove listener after triggering once
+      videoRef.current.removeEventListener("timeupdate", handleTimeUpdate);
+    }
+  };
+
   if (!announcementDate || !babies) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -273,9 +284,27 @@ export default function RevealPage() {
     );
   }
 
+  const getConfettiColors = (babies: { gender: string }[]) => {
+    const colors = [];
+    if (babies.some((b) => b.gender === "girl"))
+      colors.push("#EC4899", "#FB7185", "#FDA4AF");
+    if (babies.some((b) => b.gender === "boy"))
+      colors.push("#60A5FA", "#3B82F6", "#93C5FD");
+    return colors;
+  };
+
   if (showVideo) {
     return (
       <div className="fixed inset-0 bg-black z-50 flex items-center justify-center p-4">
+        {showConfetti && babies && (
+          <Confetti
+            width={windowSize.width}
+            height={windowSize.height}
+            colors={getConfettiColors(babies)}
+            recycle={true}
+            numberOfPieces={200 * babies.length}
+          />
+        )}
         <div className="relative w-full h-full flex items-center justify-center">
           <div
             className="relative w-full max-w-7xl aspect-video group"
@@ -291,7 +320,52 @@ export default function RevealPage() {
               onEnded={() => setShowVideo(false)}
               onPlay={() => setIsPlaying(true)}
               onPause={() => setIsPlaying(false)}
+              onTimeUpdate={handleTimeUpdate}
             />
+
+            {/* Mute button - always visible */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsMuted(!isMuted);
+              }}
+              className="absolute bottom-4 right-4 p-3 rounded-full bg-black/50 hover:bg-black/70 transition-colors text-white z-50"
+              aria-label={isMuted ? "Unmute" : "Mute"}
+            >
+              {isMuted ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M11 5 6 9H2v6h4l5 4V5Z" />
+                  <path d="M19.07 5.93C20.19 7.04 20.85 8.49 20.85 10c0 1.51-.66 2.96-1.78 4.07" />
+                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                  <path d="M23 9l-6 6" />
+                  <path d="M17 9l6 6" />
+                </svg>
+              )}
+            </button>
 
             {/* Large center play/pause button (shows on hover) */}
             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -379,50 +453,6 @@ export default function RevealPage() {
                   )}
                 </button>
               </div>
-
-              {/* Existing mute button */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsMuted(!isMuted);
-                }}
-                className="absolute bottom-4 right-4 p-3 rounded-full bg-black/50 hover:bg-black/70 transition-colors text-white"
-                aria-label={isMuted ? "Unmute" : "Mute"}
-              >
-                {isMuted ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M11 5 6 9H2v6h4l5 4V5Z" />
-                    <path d="M19.07 5.93C20.19 7.04 20.85 8.49 20.85 10c0 1.51-.66 2.96-1.78 4.07" />
-                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-                  </svg>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-                    <path d="M23 9l-6 6" />
-                    <path d="M17 9l6 6" />
-                  </svg>
-                )}
-              </button>
             </div>
           </div>
         </div>
@@ -445,15 +475,6 @@ export default function RevealPage() {
           "from-pink-200/40 via-purple-200/40 to-blue-200/40",
           "from-blue-200/40 via-purple-200/40 to-pink-200/40",
         ];
-
-  const getConfettiColors = (babies: { gender: string }[]) => {
-    const colors = [];
-    if (babies.some((b) => b.gender === "girl"))
-      colors.push("#EC4899", "#FB7185", "#FDA4AF");
-    if (babies.some((b) => b.gender === "boy"))
-      colors.push("#60A5FA", "#3B82F6", "#93C5FD");
-    return colors;
-  };
 
   const getMessage = (babies: { gender: string }[]) => {
     if (babies.length === 0) return "";
