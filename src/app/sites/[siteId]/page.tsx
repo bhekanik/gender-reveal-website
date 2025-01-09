@@ -63,11 +63,11 @@ const font = Love_Ya_Like_A_Sister({
 export default async function PreviewPage({
   params,
 }: {
-  params: { siteId: string };
+  params: Promise<{ siteId: string }>;
 }) {
-  const siteId = await params.siteId;
+  const { siteId } = await params;
   const settings = await fetchQuery(api.settings.get, {
-    siteId: params.siteId as Id<"sites">,
+    siteId: siteId as Id<"sites">,
   });
 
   if (!settings) {
