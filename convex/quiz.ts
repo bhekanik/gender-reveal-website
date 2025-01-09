@@ -176,3 +176,18 @@ export const getQuestionStats = query({
     return { stats, total };
   },
 });
+
+// Add this new query to get all questions for a site
+export const getAllQuestions = query({
+  args: {
+    siteId: v.id("sites"),
+  },
+  handler: async (ctx, args) => {
+    const questions = await ctx.db
+      .query("quizQuestions")
+      // .withIndex("by_siteId", (q) => q.eq("siteId", args.siteId))
+      .collect();
+
+    return questions;
+  },
+});

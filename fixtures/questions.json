@@ -1,601 +1,433 @@
 [
     {
-        "question": "Which hobby will the baby like the most? ",
+        "question": "What type of cravings does mom have? ",
         "options": [
-            "Painting",
-            "Reading",
-            "Gardening",
-            "Cook"
+            "Sweet",
+            "Savory",
+            "Both",
+            "Neither"
         ],
-        "easterEgg": "Gardening subtly hints at growth and nurturing.",
+        "easterEgg": "Sweet cravings are often linked to having a girl in myths.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Choose the baby's favorite type of music: ",
+        "question": "How is mom’s skin described during pregnancy? ",
         "options": [
-            "Classical",
-            "Jazz",
-            "Rock",
-            "Pop"
+            "Bright and glowing",
+            "Pale and dull",
+            "Same as before",
+            "Changes daily"
         ],
-        "easterEgg": "Pop sounds like \"pop\" as in \"pop the news.\"",
+        "easterEgg": "Glowing skin is said to hint at a boy.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Pick the baby's preferred season: ",
+        "question": "Is mom carrying high or low? ",
         "options": [
-            "Spring",
-            "Summer",
-            "Autumn",
-            "Winter"
+            "High",
+            "Low",
+            "In between",
+            "Not sure"
         ],
-        "easterEgg": "Spring symbolizes new beginnings.",
+        "easterEgg": "Carrying high is a classic myth associated with a girl.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Select the baby's preferred vacation destination: ",
+        "question": "What is the baby’s heart rate? ",
         "options": [
-            "Mountains",
-            "Beach",
-            "City",
-            "Countryside"
+            "Below 140 bpm",
+            "Above 140 bpm",
+            "Exactly 140 bpm",
+            "Not known"
         ],
-        "easterEgg": "Neutral options; Beach could hint at \"sea\" (pronounced like \"she\").",
+        "easterEgg": "A heart rate above 140 bpm is often linked to having a girl in myths.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "What's the baby's favorite time of day? ",
+        "question": "What side does mom prefer to sleep on? ",
         "options": [
-            "Morning",
-            "Afternoon",
-            "Evening",
-            "Night"
+            "Left",
+            "Right",
+            "Back",
+            "Changes nightly"
         ],
-        "easterEgg": "Evening contains \"Eve,\" a female name.",
+        "easterEgg": "Sleeping on the left is said to hint at a boy.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Choose a classic film the baby will like the most: ",
+        "question": "How does mom feel about cold feet? ",
         "options": [
-            "Casablanca",
-            "The Wizard of Oz",
-            "Gone with the Wind",
-            "Star Wars"
+            "Always cold",
+            "Warm as usual",
+            "Colder than normal",
+            "No difference"
         ],
-        "easterEgg": "The Wizard of Oz features Dorothy, a strong female lead.",
+        "easterEgg": "Cold feet are often linked to having a boy.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Pick a fruit the baby will like the most: ",
+        "question": "How is mom’s morning sickness? ",
         "options": [
-            "Apple",
-            "Banana",
-            "Strawberry",
-            "Orange"
+            "Severe",
+            "Mild",
+            "None at all",
+            "Comes and goes"
         ],
-        "easterEgg": "Strawberry often associated with the color pink.",
+        "easterEgg": "Severe morning sickness is often associated with a girl.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Select a pet the baby will like the most: ",
+        "question": "What type of dreams does mom have about the baby? ",
         "options": [
-            "Dog",
-            "Cat",
-            "Rabbit",
-            "Fish"
+            "Baby boy",
+            "Baby girl",
+            "Dreams of both",
+            "No dreams yet"
         ],
-        "easterEgg": "Cat can symbolize independence, often linked to femininity.",
+        "easterEgg": "Dreaming of one gender is often thought to predict the opposite.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Choose a favorite flower the baby will like the most: ",
+        "question": "How does mom’s hair look during pregnancy? ",
         "options": [
-            "Rose",
-            "Sunflower",
-            "Daisy",
-            "Tulip"
+            "Thick and shiny",
+            "Dry and thin",
+            "Same as before",
+            "No change"
         ],
-        "easterEgg": "All options are flowers, commonly associated with girls.",
+        "easterEgg": "Thick, shiny hair is often linked to having a boy.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "What's the baby's preferred type of weather? ",
+        "question": "How does mom’s face look during pregnancy? ",
         "options": [
-            "Sunny",
-            "Rainy",
-            "Snowy",
-            "Windy"
+            "Rounder",
+            "Same as before",
+            "Slimmer",
+            "Varies day-to-day"
         ],
-        "easterEgg": "Rainy can lead to rainbows, symbolizing joy and promise.",
+        "easterEgg": "A rounder face is often linked to having a girl in myths.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Pick the baby's favorite color: ",
+        "question": "What type of dreams does dad have? ",
         "options": [
-            "Blue",
-            "Green",
-            "Purple",
-            "Yellow"
+            "Baby boy",
+            "Baby girl",
+            "No baby dreams",
+            "Both genders"
         ],
-        "easterEgg": "Purple combines pink and blue.",
+        "easterEgg": "Dad dreaming of one gender is said to predict the opposite.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Select a mythical creature the baby will like the most: ",
+        "question": "How active is the baby in the womb? ",
         "options": [
-            "Dragon",
-            "Phoenix",
-            "Unicorn",
-            "Mermaid"
+            "Very active",
+            "Somewhat active",
+            "Rarely active",
+            "Not sure"
         ],
-        "easterEgg": "Unicorn and Mermaid often appear in stories for girls.",
+        "easterEgg": "Very active babies are often linked to boys in myths.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Choose a mode of transportation the baby will like the most: ",
+        "question": "How does mom feel about citrus fruits? ",
         "options": [
-            "Car",
-            "Bicycle",
-            "Train",
-            "Boat"
+            "Craves them",
+            "Avoids them",
+            "Neutral",
+            "It varies"
         ],
-        "easterEgg": "Neutral options.",
+        "easterEgg": "Craving citrus is often associated with having a girl.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "What's the baby's go-to dessert? ",
+        "question": "How does mom feel about spicy food? ",
         "options": [
-            "Chocolate cake",
-            "Ice cream",
-            "Fruit salad",
-            "Cookies"
+            "Loves it",
+            "Avoids it",
+            "No preference",
+            "It depends on the day"
         ],
-        "easterEgg": "Cookies might hint at sugar and spice, from the nursery rhyme.",
+        "easterEgg": "Loving spicy food is often linked to having a boy.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Pick the baby's favorite sport: ",
+        "question": "What does the Mayan Gender Predictor suggest? ",
         "options": [
-            "Soccer",
-            "Tennis",
-            "Basketball",
-            "Swimming"
+            "Boy",
+            "Girl",
+            "Unclear",
+            "Not checked"
         ],
-        "easterEgg": "Tennis has prominent female athletes.",
+        "easterEgg": "The Mayan method is another fun myth but not scientifically proven.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Select a board game the baby will like the most: ",
+        "question": "How does mom feel emotionally? ",
         "options": [
-            "Chess",
-            "Monopoly",
-            "Scrabble",
-            "Candy Land"
+            "More emotional than usual",
+            "Calm and steady",
+            "Same as before",
+            "It fluctuates"
         ],
-        "easterEgg": "Candy Land is colorful and whimsical.",
+        "easterEgg": "Being more emotional is often linked to having a girl in myths.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Choose the baby's favorite superpower: ",
+        "question": "How does mom’s nose appear during pregnancy? ",
         "options": [
-            "Invisibility",
-            "Flight",
-            "Telepathy",
-            "Super strength"
+            "Larger",
+            "Same as before",
+            "Smaller",
+            "Not noticeable"
         ],
-        "easterEgg": "Telepathy relates to understanding emotions.",
+        "easterEgg": "A larger nose is often linked to having a boy in myths.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Pick the baby's favorite animal: ",
+        "question": "How does mom’s body temperature feel? ",
         "options": [
-            "Lion",
-            "Dolphin",
-            "Eagle",
-            "Butterfly"
+            "Warmer than usual",
+            "Colder than usual",
+            "Normal",
+            "Varies"
         ],
-        "easterEgg": "Butterfly symbolizes transformation and beauty.",
+        "easterEgg": "Warmer temperatures are often linked to boys in myths.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Select a genre of books the baby will like the most: ",
+        "question": "What does the baking soda test say? ",
         "options": [
-            "Mystery",
-            "Romance",
-            "Science Fiction",
-            "Fantasy"
+            "Fizzes",
+            "Doesn’t fizz",
+            "Not tested",
+            "Unclear result"
         ],
-        "easterEgg": "Romance often associated with love.",
+        "easterEgg": "Fizzing is said to predict a boy.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "What's the baby's ideal weekend activity? ",
+        "question": "How does mom’s appetite feel? ",
         "options": [
-            "Hiking",
-            "Movie marathon",
-            "Visiting a museum",
-            "Picnic in the park"
+            "Increased",
+            "Decreased",
+            "Same as before",
+            "Varies day-to-day"
         ],
-        "easterEgg": "Picnic in the park suggests a family-oriented activity.",
+        "easterEgg": "An increased appetite is often linked to having a boy.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Choose a type of art the baby will like the most: ",
+        "question": "What do family members predict? ",
         "options": [
-            "Sculpture",
-            "Dance",
-            "Photography",
-            "Music"
+            "Boy",
+            "Girl",
+            "Mixed opinions",
+            "No guesses yet"
         ],
-        "easterEgg": "Dance can be linked to ballet.",
+        "easterEgg": "Family guesses are part of the fun but rarely accurate.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Pick the baby's favorite beverage: ",
+        "question": "How does mom’s leg hair grow during pregnancy? ",
         "options": [
-            "Coffee",
-            "Tea",
-            "Juice",
-            "Smoothie"
+            "Faster than usual",
+            "Slower than usual",
+            "No change",
+            "Not noticeable"
         ],
-        "easterEgg": "Tea time is often associated with elegance.",
+        "easterEgg": "Faster leg hair growth is often linked to having a boy in myths.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Select a famous landmark the baby will like the most: ",
+        "question": "What does the pendulum test say? ",
         "options": [
-            "Eiffel Tower",
-            "Great Wall of China",
-            "Statue of Liberty",
-            "Pyramids of Giza"
+            "Circles",
+            "Back and forth",
+            "No movement",
+            "Not tested"
         ],
-        "easterEgg": "Statue of Liberty is a female figure.",
+        "easterEgg": "Circular movement often predicts a girl.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "What's the baby's favorite ice cream flavor? ",
+        "question": "How does mom’s posture feel? ",
         "options": [
-            "Vanilla",
-            "Chocolate",
-            "Strawberry",
-            "Mint chocolate chip"
+            "More upright",
+            "Slouched",
+            "No difference",
+            "Varies by day"
         ],
-        "easterEgg": "Strawberry again links to pink hues.",
+        "easterEgg": "Better posture is said to predict a boy in myths.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Choose the baby's favorite historical figure: ",
+        "question": "What side does the baby kick more often? ",
         "options": [
-            "Abraham Lincoln",
-            "Marie Curie",
-            "Martin Luther King Jr.",
-            "Leonardo da Vinci"
+            "Left",
+            "Right",
+            "Equal on both sides",
+            "Not sure"
         ],
-        "easterEgg": "Marie Curie is a notable woman in history.",
+        "easterEgg": "Left-side kicks are often linked to girls in myths.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Pick the baby's favorite constellation: ",
+        "question": "What does mom’s ring size feel like during pregnancy? ",
         "options": [
-            "Orion",
-            "Andromeda",
-            "Big Dipper",
-            "Southern Cross"
+            "Tighter",
+            "Looser",
+            "No change",
+            "Not wearing rings"
         ],
-        "easterEgg": "Andromeda is a princess in mythology.",
+        "easterEgg": "Looser rings are often linked to boys in myths.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Select the baby's favorite type of dance: ",
+        "question": "How does mom’s back pain feel? ",
         "options": [
-            "Salsa",
-            "Hip-hop",
-            "Ballet",
-            "Tap"
+            "Frequent",
+            "Rare",
+            "No difference",
+            "On and off"
         ],
-        "easterEgg": "Ballet is often associated with girls.",
+        "easterEgg": "Frequent back pain is said to predict a boy.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Choose the baby's favorite cake flavor: ",
+        "question": "What direction does the pillow face during sleep? ",
         "options": [
-            "Chocolate",
-            "Red velvet",
-            "Lemon",
-            "Carrot"
+            "North",
+            "South",
+            "East",
+            "West"
         ],
-        "easterEgg": "Red velvet has a rich, elegant feel.",
+        "easterEgg": "North-facing pillows are said to predict a boy.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "What's the baby's favorite way to relax? ",
+        "question": "How does mom feel about garlic? ",
         "options": [
-            "Reading a book",
-            "Taking a walk",
-            "Meditation",
-            "Listening to music"
+            "Loves it",
+            "Avoids it",
+            "Neutral",
+            "No preference"
         ],
-        "easterEgg": "Neutral options.",
+        "easterEgg": "Loving garlic and not smelling it on the skin is linked to boys.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Pick the baby's favorite type of footwear: ",
+        "question": "How does mom feel about salty snacks? ",
         "options": [
-            "Sneakers",
-            "Sandals",
-            "Boots",
-            "Slippers"
+            "Craves them",
+            "Avoids them",
+            "Neutral",
+            "It varies"
         ],
-        "easterEgg": "Sandals could hint at open, carefree times.",
+        "easterEgg": "Craving salty snacks is linked to boys in myths.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Select the baby's favorite holiday: ",
+        "question": "How does mom’s belly shape appear? ",
         "options": [
-            "New Year's Eve",
-            "Valentine's Day",
-            "Independence Day",
-            "Halloween"
+            "Round like a basketball",
+            "Wide and spread out",
+            "Same as usual",
+            "Not noticeable"
         ],
-        "easterEgg": "Valentine's Day ties back to love.",
+        "easterEgg": "A basketball-like belly shape is linked to boys.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Choose the baby's favorite planet: ",
+        "question": "How does mom’s mood feel overall? ",
         "options": [
-            "Mars",
-            "Venus",
-            "Jupiter",
-            "Saturn"
+            "Calm and relaxed",
+            "More irritable",
+            "No difference",
+            "Varies daily"
         ],
-        "easterEgg": "Venus is named after the Roman goddess of love.",
+        "easterEgg": "Irritability is often linked to having a girl in myths.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Pick the baby's favorite type of tree: ",
+        "question": "How does mom feel about dairy products? ",
         "options": [
-            "Oak",
-            "Willow",
-            "Pine",
-            "Maple"
+            "Craves them",
+            "Avoids them",
+            "No preference",
+            "Varies day-to-day"
         ],
-        "easterEgg": "Willow is a feminine name.",
+        "easterEgg": "Craving dairy is said to predict a girl.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "What's the baby's preferred genre of movies? ",
+        "question": "How do mom’s hands feel? ",
         "options": [
-            "Action",
-            "Comedy",
-            "Drama",
-            "Documentary"
+            "Dry",
+            "Soft",
+            "Same as before",
+            "Varies daily"
         ],
-        "easterEgg": "Neutral options.",
+        "easterEgg": "Dry hands are often linked to boys in myths.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Select the baby's favorite musical instrument: ",
+        "question": "How does mom feel about red meat? ",
         "options": [
-            "Guitar",
-            "Piano",
-            "Violin",
-            "Drums"
+            "Craves it",
+            "Avoids it",
+            "Neutral",
+            "It varies"
         ],
-        "easterEgg": "Violin is elegant and classical.",
+        "easterEgg": "Craving red meat is often linked to boys in myths.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     },
     {
-        "question": "Choose a type of weather the baby will like the most: ",
+        "question": "How does the key test go? ",
         "options": [
-            "Clear skies",
-            "Rainy",
-            "Snowy",
-            "Thunderstorm"
+            "Picks up by the round end",
+            "Picks up by the narrow end",
+            "Doesn’t touch the key",
+            "Not tested"
         ],
-        "easterEgg": "Rain can symbolize renewal.",
-        "createdAt": 1726531200,
-        "updatedAt": 1726531200
-    },
-    {
-        "question": "Pick the baby's favorite bird: ",
-        "options": [
-            "Eagle",
-            "Parrot",
-            "Swan",
-            "Owl"
-        ],
-        "easterEgg": "Swan symbolizes grace and beauty.",
-        "createdAt": 1726531200,
-        "updatedAt": 1726531200
-    },
-    {
-        "question": "Select the baby's favorite dessert topping: ",
-        "options": [
-            "Chocolate syrup",
-            "Whipped cream",
-            "Sprinkles",
-            "Cherries"
-        ],
-        "easterEgg": "Cherries often top sundaes, adding sweetness.",
-        "createdAt": 1726531200,
-        "updatedAt": 1726531200
-    },
-    {
-        "question": "Choose the baby's favorite style of art: ",
-        "options": [
-            "Impressionism",
-            "Abstract",
-            "Realism",
-            "Surrealism"
-        ],
-        "easterEgg": "Neutral options.",
-        "createdAt": 1726531200,
-        "updatedAt": 1726531200
-    },
-    {
-        "question": "What's the baby's favorite type of cookie? ",
-        "options": [
-            "Chocolate chip",
-            "Oatmeal raisin",
-            "Sugar",
-            "Peanut butter"
-        ],
-        "easterEgg": "Sugar cookies tie back to sugar and spice.",
-        "createdAt": 1726531200,
-        "updatedAt": 1726531200
-    },
-    {
-        "question": "Pick the baby's favorite gemstone: ",
-        "options": [
-            "Diamond",
-            "Sapphire",
-            "Ruby",
-            "Emerald"
-        ],
-        "easterEgg": "Ruby is a female name.",
-        "createdAt": 1726531200,
-        "updatedAt": 1726531200
-    },
-    {
-        "question": "Select the baby's favorite fabric pattern: ",
-        "options": [
-            "Stripes",
-            "Polka dots",
-            "Plaid",
-            "Floral"
-        ],
-        "easterEgg": "Floral patterns are often associated with femininity.",
-        "createdAt": 1726531200,
-        "updatedAt": 1726531200
-    },
-    {
-        "question": "Choose the baby's favorite card game: ",
-        "options": [
-            "Poker",
-            "Go Fish",
-            "Solitaire",
-            "Hearts"
-        ],
-        "easterEgg": "Hearts symbolizes love.",
-        "createdAt": 1726531200,
-        "updatedAt": 1726531200
-    },
-    {
-        "question": "Pick the baby's preferred learning style: ",
-        "options": [
-            "Visual",
-            "Auditory",
-            "Reading/Writing",
-            "Kinesthetic"
-        ],
-        "easterEgg": "Neutral options.",
-        "createdAt": 1726531200,
-        "updatedAt": 1726531200
-    },
-    {
-        "question": "What's the baby's favorite way to travel? ",
-        "options": [
-            "Road trip",
-            "Flying",
-            "Train",
-            "Cruise"
-        ],
-        "easterEgg": "Cruise could hint at sea/she.",
-        "createdAt": 1726531200,
-        "updatedAt": 1726531200
-    },
-    {
-        "question": "Select the baby's favorite constellation: ",
-        "options": [
-            "Pegasus",
-            "Cassiopeia",
-            "Hercules",
-            "Scorpius"
-        ],
-        "easterEgg": "Cassiopeia is a queen in mythology.",
-        "createdAt": 1726531200,
-        "updatedAt": 1726531200
-    },
-    {
-        "question": "Choose the baby's favorite type of tea: ",
-        "options": [
-            "Green tea",
-            "Black tea",
-            "Chamomile",
-            "Earl Grey"
-        ],
-        "easterEgg": "Chamomile is calming, associated with nurturing.",
-        "createdAt": 1726531200,
-        "updatedAt": 1726531200
-    },
-    {
-        "question": "Pick the baby's favorite childhood game: ",
-        "options": [
-            "Hide and Seek",
-            "Tag",
-            "Hopscotch",
-            "Jump rope"
-        ],
-        "easterEgg": "Jump rope often played in groups with rhymes.",
-        "createdAt": 1726531200,
-        "updatedAt": 1726531200
-    },
-    {
-        "question": "What's the baby's favorite type of cheese? ",
-        "options": [
-            "Cheddar",
-            "Brie",
-            "Swiss",
-            "Gouda"
-        ],
-        "easterEgg": "Brie is also a female name.",
-        "createdAt": 1726531200,
-        "updatedAt": 1726531200
-    },
-    {
-        "question": "Select the baby's favorite type of cloud: ",
-        "options": [
-            "Cumulus",
-            "Cirrus",
-            "Stratus",
-            "Nimbus"
-        ],
-        "easterEgg": "Neutral options.",
+        "easterEgg": "Picking up the round end is said to predict a girl.",
         "createdAt": 1726531200,
         "updatedAt": 1726531200
     }
