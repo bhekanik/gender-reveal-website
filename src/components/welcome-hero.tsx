@@ -43,9 +43,8 @@ export function WelcomeHero({ preview = false }: { preview?: boolean }) {
         transition={{ delay: 0.2 }}
         className="text-xl text-neutral-600 max-w-2xl mx-auto leading-relaxed"
       >
-        Join us in the excitement of discovering whether we&apos;re having a
-        little prince or princess. Make your guess and participate in our fun
-        activities!
+        Join us in the excitement. Will it be a boy or a girl? Make your guess
+        and take the quiz!
       </motion.p>
 
       <motion.div
