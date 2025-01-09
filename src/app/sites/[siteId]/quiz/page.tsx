@@ -12,8 +12,10 @@ const font = Love_Ya_Like_A_Sister({
 export default function QuizPage() {
   return (
     <AnimatedBackground>
-      <div className={cn("min-h-screen flex items-center", font.variable)}>
-        <div className="container mx-auto px-4 py-12 font-love-ya-like-a-sister">
+      <div
+        className={cn("min-h-screen grid place-items-center", font.variable)}
+      >
+        <div className="container mx-auto px-4 py-4 font-love-ya-like-a-sister">
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="text-center space-y-4">
               <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent">
