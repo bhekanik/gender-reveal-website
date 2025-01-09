@@ -34,6 +34,7 @@ export function Quiz({ preview = false }: { preview?: boolean }) {
   const handleStartQuiz = async () => {
     setCurrentQuestionIndex(0);
     setQuizState("in-progress");
+    setShowingStats(false);
     const result = await startSession({ visitorId, siteId });
 
     if (result.questions.length === 0) {
