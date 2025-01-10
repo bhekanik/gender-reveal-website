@@ -13,8 +13,6 @@ export function QuizResultsView() {
     siteId,
   });
 
-  console.log(questions);
-
   if (!questions) {
     return (
       <div className="flex justify-center items-center min-h-[200px]">
@@ -26,7 +24,7 @@ export function QuizResultsView() {
   if (questions.length === 0) {
     return (
       <div className="text-center text-neutral-600">
-        No quiz questions found for this site.
+        No quiz questions found. Please add some questions to your quiz.
       </div>
     );
   }

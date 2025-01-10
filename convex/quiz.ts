@@ -183,11 +183,19 @@ export const getAllQuestions = query({
     siteId: v.id("sites"),
   },
   handler: async (ctx, args) => {
-    const questions = await ctx.db
+    // Get site-specific questions
+    const siteQuestions = await ctx.db
       .query("quizQuestions")
-      // .withIndex("by_siteId", (q) => q.eq("siteId", args.siteId))
+      .withIndex("by_siteId", (q) => q.eq("siteId", args.siteId))
       .collect();
 
-    return questions;
+    // Get global questions (questions with no siteId)
+    const globalQuestions = await ctx.db
+      .query("quizQuestions")
+      .filter((q) => q.eq(q.field("siteId"), undefined))
+      .collect();
+
+    // Combine and return both sets of questions
+    return [...siteQuestions, ...globalQuestions];
   },
 });
