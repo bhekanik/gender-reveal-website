@@ -36,7 +36,14 @@ export function QuizResultsView() {
   return (
     <div className="space-y-8">
       {questions.map((question, index) => (
-        <Suspense key={question._id} fallback={<div>Loading...</div>}>
+        <Suspense
+          key={question._id}
+          fallback={
+            <div className="flex justify-center items-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900" />
+            </div>
+          }
+        >
           <QuestionResultCard
             key={question._id}
             question={question}
