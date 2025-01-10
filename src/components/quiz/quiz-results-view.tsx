@@ -13,6 +13,8 @@ export function QuizResultsView() {
     siteId,
   });
 
+  console.log("questions:", questions);
+
   if (!questions) {
     return (
       <div className="flex justify-center items-center min-h-[200px]">
