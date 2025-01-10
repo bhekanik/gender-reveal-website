@@ -2,10 +2,11 @@
 
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
+import { config } from "@/lib/config";
 import { useQuery } from "convex/react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface TimeUnit {
@@ -22,6 +23,7 @@ export function CountdownTimer({ preview = false }: { preview?: boolean }) {
   const siteId = params.siteId as Id<"sites">;
 
   const announcementDate = useQuery(api.settings.getAnnouncementDate);
+  const router = useRouter();
 
   useEffect(() => {
     if (announcementDate === undefined) {
@@ -44,6 +46,7 @@ export function CountdownTimer({ preview = false }: { preview?: boolean }) {
 
       if (distance < 0) {
         setIsExpired(true);
+        router.push(config.isDev ? `/sites/${siteId}/reveal` : `/reveal`);
         return [];
       }
 
@@ -76,7 +79,7 @@ export function CountdownTimer({ preview = false }: { preview?: boolean }) {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [announcementDate]);
+  }, [announcementDate, router, siteId]);
 
   if (isLoading) {
     return (
