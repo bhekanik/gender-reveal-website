@@ -42,7 +42,7 @@
     "framer-motion": "^11.11.17",
     "import-in-the-middle": "^1.11.2",
     "lucide-react": "^0.460.0",
-    "next": "15.0.3",
+    "next": "15.0.5",
     "next-themes": "^0.4.3",
     "nextjs-toploader": "^3.7.15",
     "pino": "^9.5.0",
